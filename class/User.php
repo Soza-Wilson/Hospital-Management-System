@@ -53,7 +53,7 @@ class User
             $result = $this->con->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                  
+
                     $_SESSION['userID'] = $row['user_id'];
                     $_SESSION['firstName'] = $row['first_name'];
                     $_SESSION['lastName'] = $row['last_name'];
@@ -107,6 +107,33 @@ class User
             }
         } catch (\Throwable $th) {
             throw $th;
+        }
+    }
+
+    public function getUsers(): object
+    {
+
+        try {
+            //code...
+            $sql = "SELECT * FROM  `user`";
+            $result = $this->con->query($sql);
+            if ($result->num_rows > 0) {
+                return $result;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function getUsersDetails(): array
+    {
+        $sql = "SELECT 1 FROM `user` WHERE `user_id` = '$this->userID'";
+        $result = $this->con->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                return $row;
+            }
         }
     }
 }

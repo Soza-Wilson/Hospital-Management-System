@@ -101,6 +101,7 @@ class Patient
                     return $row;
                 }
             }
+          
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -1,15 +1,3 @@
-<?php
-spl_autoload_register(function ($class) {
-  if (file_exists('../../class/' . $class . '.php')) {
-    require_once '../../class/' . $class . '.php';
-  }
-});
-
-$patient = new Patient($_GET['patientID'], "", "", "", "", "", "", "", "", "", "");
-$patientData = $patient->getPatientDetails();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +5,7 @@ $patientData = $patient->getPatientDetails();
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bwaila MHS / View Patient Details </title>
+  <title>Bwaila MHS / Register department</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -68,9 +56,9 @@ $patientData = $patient->getPatientDetails();
           </a>
         </li><!-- End Search Icon-->
 
+        
 
-
-
+        
 
         <li class="nav-item dropdown pe-3">
 
@@ -149,32 +137,32 @@ $patientData = $patient->getPatientDetails();
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-emoji-dizzy"></i><span>Patient</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="patient/register-patient.php">
+            <a href="../patient/register-patient.php" >
               <i class="bi bi-circle"></i><span>Register Patient</span>
             </a>
           </li>
           <li>
-            <a href="view-patients.php" class="active">
+            <a href="../patient/view-patients.php">
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
             </a>
           </li>
           <li>
-            <a href="register-diagnosis.php">
+            <a href="../patient/register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="register-treatment.php">
+            <a href="../patient/register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>
-
+          
         </ul>
       </li><!-- End Components Nav -->
 
-
+     
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -198,22 +186,18 @@ $patientData = $patient->getPatientDetails();
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-shop"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="charts-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
+            <a href="register_department.php" class="active">
+              <i class="bi bi-circle"></i><span>Register Department</span>
             </a>
           </li>
           <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
+            <a href="departments.php">
+              <i class="bi bi-circle"></i><span>View Departments</span>
             </a>
           </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
+         
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -240,10 +224,10 @@ $patientData = $patient->getPatientDetails();
         </ul>
       </li><!-- End Icons Nav -->
 
+      
 
-
-
-
+     
+      
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -251,12 +235,12 @@ $patientData = $patient->getPatientDetails();
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>View Patinet Details</h1>
+      <h1>Register Department</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="view-patients.php">Patients</a></li>
-          <li class="breadcrumb-item active">View Patient Details</li>
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Department</li>
+          <li class="breadcrumb-item active">Register department</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -267,148 +251,48 @@ $patientData = $patient->getPatientDetails();
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Patient activity </h5>
-
-          <div class="col-md-12">
-            <button class="btn btn-warning "><span>Appointments (0)</span></button>
-            <button class="btn btn-primary"><span>Diagnosis (0)</span></button>
-            <button class="btn btn-success "><span>Retreatment (0)</span></button>
-          </div>
-
-         
-
-
-          
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-12">
-
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Patient Details </h5>
+          <h5 class="card-title">Enter Patient Details </h5>
 
 
           <!-- Custom Styled Validation -->
           <form class="row g-3 needs-validation" novalidate>
-
             <div class="col-md-12">
-              <label for="patientID" class="form-label">Patieny ID </label>
-              <input type="text" class="form-control" id="patientID" value='<?php echo $_GET['patientID'] ?>'>
+              <label for="departmentName" class="form-label">Department name</label>
+              <input type="text" class="form-control data" id="departmentName" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
             </div>
+            
+           
+
+            
+            
+           
+           
+            
             <div class="col-md-12">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" value="<?php echo $patientData['first_name'] ?>" required>
+              <label for="description" class="form-label">Description</label>
+              <textarea type="text" class="form-control data" id="description" required></textarea>
               <div class="valid-feedback">
                 Looks good!
               </div>
             </div>
-            <div class="col-md-12">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" value="<?php echo $patientData['last_name'] ?>" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
-            <div class="col-md-12">
-              <label for="dob" class="form-label">Date of Birth</label>
-              <div class="input-group has-validation">
+            
+           
+            
+         
 
-                <input type="date" class="form-control" id="dob" aria-describedby="inputGroupPrepend" value="<?php echo $patientData['last_name'] ?>" required>
-                <div class="invalid-feedback">
-                  Please choose a date of birth.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="sex" class="form-label">Sex</label>
-              <select class="form-select" id="sex" required>
-                <option selected disabled value="">Choose Gender...</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid region.
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="contactAddress" class="form-label">Contact Address</label>
-              <div class="input-group has-validation">
-
-                <input type="date" class="form-control" id="contactAddress" aria-describedby="inputGroupPrepend" required>
-                <div class="invalid-feedback">
-                  Please choose a contact address.
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <label for="email" class="form-label">Email(Optional)</label>
-              <div class="input-group has-validation">
-
-                <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend">
-                <div class="invalid-feedback">
-                  Please choose a email.
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom04" class="form-label">Region</label>
-              <select class="form-select" id="select_region" required>
-                <option selected disabled value="">Choose Region...</option>
-                <option value="northern">Northen Region</option>
-                <option value="central">Central Region</option>
-                <option value="southern">Sourthern Region</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid region.
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom04" class="form-label">District</label>
-              <select class="form-select" id="select_district" required>
-                <option selected disabled value="">Choose District...</option>
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid district.
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom03" class="form-label">TA</label>
-              <input type="text" class="form-control" id="ta" required>
-              <div class="invalid-feedback">
-                Please provide a valid tradional authority.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="validationCustom05" class="form-label">Village</label>
-              <input type="text" class="form-control" id="village" required>
-              <div class="invalid-feedback">
-                Please provide village name .
-              </div>
-
-
-            </div>
-
-
+          
             <div class="col-12">
-
+              
             </div>
-
+            
           </form><!-- End Custom Styled Validation -->
 
           <div class="col-12">
-            <button class="btn btn-primary" id="save_patient">Submit form</button>
-          </div>
+              <button class="btn btn-primary" id="save_department">Submit form</button>
+            </div>
 
         </div>
       </div>
@@ -445,7 +329,7 @@ $patientData = $patient->getPatientDetails();
 
 
   <script src="../../assets/js/main.js"></script>
-
+  <script src="../../assets/js/department/register_department__.js"></script>
 
 </body>
 

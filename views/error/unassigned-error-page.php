@@ -37,7 +37,7 @@
     <div class="container">
 
       <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
-        <h1>300</h1>
+        <h1>403</h1>
         <h2>Account not yet assigned to Department and Role .</h2>
         <a class="btn" href="index.html">Sign Out</a>
         <img src="../../assets/img/not-found.svg" class="img-fluid py-5" alt="Page Not Found">

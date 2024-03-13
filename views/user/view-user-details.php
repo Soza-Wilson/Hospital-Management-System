@@ -5,8 +5,8 @@ spl_autoload_register(function ($class) {
   }
 });
 
-$patient = new Patient($_GET['patientID'], "", "", "", "", "", "", "", "", "", "");
-$patientData = $patient->getPatientDetails();
+$user = new User($_GET['userID'], "", "", "", "", "", "", "", "", "", "");
+$userData = $user->getUsersDetails();
 
 ?>
 
@@ -17,7 +17,7 @@ $patientData = $patient->getPatientDetails();
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bwaila MHS / View Patient Details </title>
+  <title>Bwaila MHS / View User Details </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -149,14 +149,14 @@ $patientData = $patient->getPatientDetails();
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-emoji-dizzy"></i><span>Patient</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="patient/register-patient.php">
+            <a href="../patient/register-patient.php">
               <i class="bi bi-circle"></i><span>Register Patient</span>
             </a>
           </li>
           <li>
-            <a href="view-patients.php" class="active">
+            <a href="../patient/view-patients.php" >
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
             </a>
           </li>
@@ -180,10 +180,10 @@ $patientData = $patient->getPatientDetails();
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-lines-fill"></i><span>User & Role </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="view-users.php"class="active">
+              <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
           <li>
@@ -303,14 +303,14 @@ $patientData = $patient->getPatientDetails();
             </div>
             <div class="col-md-12">
               <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" value="<?php echo $patientData['first_name'] ?>" required>
+              <input type="text" class="form-control" id="firstName" value="<?php echo $userData['first_name'] ?>" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
             </div>
             <div class="col-md-12">
               <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" value="<?php echo $patientData['last_name'] ?>" required>
+              <input type="text" class="form-control" id="lastName" value="<?php echo $userData['last_name'] ?>" required>
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -319,7 +319,7 @@ $patientData = $patient->getPatientDetails();
               <label for="dob" class="form-label">Date of Birth</label>
               <div class="input-group has-validation">
 
-                <input type="date" class="form-control" id="dob" aria-describedby="inputGroupPrepend" value="<?php echo $patientData['last_name'] ?>" required>
+                <input type="date" class="form-control" id="dob" aria-describedby="inputGroupPrepend" value="<?php echo $userData['last_name'] ?>" required>
                 <div class="invalid-feedback">
                   Please choose a date of birth.
                 </div>

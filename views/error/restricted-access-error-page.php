@@ -1,11 +1,3 @@
-<?php
-session_start();
-session_destroy();
-
-echo"
-<meta http-equiv=Refresh content=2;url=../auth/login.php>";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +5,7 @@ echo"
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bwaila HMS / Wrong Credentials </title>
+  <title>Bwaila HMS / User not assigned </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -45,10 +37,10 @@ echo"
     <div class="container">
 
       <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
-        <h1>401</h1>
-        <h2>Wrong Email or Password.</h2>
-     
-        <img src="../../assets/img/usecure_login.svg" class="img-fluid py-5" alt="Page Not Found">
+        <h1>403</h1>
+        <h2>You do not have access to page .</h2>
+        <a class="btn" href="index.html">Sign Out</a>
+        <img src="../../assets/img/no-access.svg" class="img-fluid py-5" alt="Page Not Found">
         
       </section>
 
