@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
   }
 });
 
-$patient = new Patient($_GET['patientID'], "", "", "", "", "", "", "", "", "", "");
+$patient = new Patient($_GET['patientID'], "", "", "", "", "", "", "", "", "", "","");
 $patientData = $patient->getPatientDetails();
 
 ?>
@@ -158,6 +158,11 @@ $patientData = $patient->getPatientDetails();
           <li>
             <a href="view-patients.php" class="active">
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
+            </a>
+          </li>
+          <li>
+            <a href="register-referrel.php" >
+              <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
           <li>

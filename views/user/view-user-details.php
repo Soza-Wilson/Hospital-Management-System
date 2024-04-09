@@ -4,14 +4,22 @@ spl_autoload_register(function ($class) {
     require_once '../../class/' . $class . '.php';
   }
 });
+session_start();
+
+$role = new Role("", "", "", "");
+$userRole = $role->getRole($_SESSION['user']);
 
 $user = new User($_GET['userID'], "", "", "", "", "", "", "", "", "", "");
-$userData = $user->getUsersDetails();
+$userData = $user->getUser();
+;
+
+
+
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">s
 
 <head>
   <meta charset="utf-8">
@@ -69,57 +77,34 @@ $userData = $user->getUsersDetails();
         </li><!-- End Search Icon-->
 
 
-
-
-
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo ucfirst($_SESSION['firstName'])  ?> . <?php echo ucfirst($_SESSION['lastName']) ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?php echo ucfirst($_SESSION['firstName']) ?> . <?php echo ucfirst($_SESSION['lastName']) ?></h6>
+              <span><?php echo $userRole; ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
             </li>
+        
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -130,6 +115,7 @@ $userData = $user->getUsersDetails();
 
       </ul>
     </nav><!-- End Icons Navigation -->
+
 
   </header><!-- End Header -->
 
@@ -156,7 +142,7 @@ $userData = $user->getUsersDetails();
             </a>
           </li>
           <li>
-            <a href="../patient/view-patients.php" >
+            <a href="../patient/view-patients.php">
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
             </a>
           </li>
@@ -182,13 +168,13 @@ $userData = $user->getUsersDetails();
         </a>
         <ul id="tables-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="view-users.php"class="active">
-              <i class="bi bi-circle"></i><span>Users</span>
+            <a href="view-active-users.php" class="active">
+              <i class="bi bi-circle"></i><span>Active Users</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+            <a href="view-inactive-users.php">
+              <i class="bi bi-circle"></i><span>Inactive Users</span>
             </a>
           </li>
         </ul>
@@ -200,20 +186,16 @@ $userData = $user->getUsersDetails();
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
+            <a href="../../views/department/register-department.php">
+              <i class="bi bi-circle"></i><span>Register Department</span>
             </a>
           </li>
           <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
+            <a href="../../views/department/departments.php">
+              <i class="bi bi-circle"></i><span>View Departments</span>
             </a>
           </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
+
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -251,12 +233,12 @@ $userData = $user->getUsersDetails();
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>View Patinet Details</h1>
+      <h1>View User Details</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="view-patients.php">Patients</a></li>
-          <li class="breadcrumb-item active">View Patient Details</li>
+          <li class="breadcrumb-item"><a href="#">Users</a></li>
+          <li class="breadcrumb-item active">View user Details</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -267,7 +249,7 @@ $userData = $user->getUsersDetails();
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Patient activity </h5>
+          <h5 class="card-title">User activity </h5>
 
           <div class="col-md-12">
             <button class="btn btn-warning "><span>Appointments (0)</span></button>
@@ -275,10 +257,143 @@ $userData = $user->getUsersDetails();
             <button class="btn btn-success "><span>Retreatment (0)</span></button>
           </div>
 
-         
 
 
-          
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+
+
+      <?php
+
+
+
+
+      ?>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Assign Role </h5>
+
+          <div class="col-md-12">
+
+            <div class="col-md-12">
+              <label for="validationCustom04" class="form-label">Department</label>
+              <input type="text" class="form-control" id="department" required>
+
+              <div class="invalid-feedback">
+                Please select a valid district.
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="validationCustom03" class="form-label">title</label>
+              <input type="text" class="form-control" id="title" required>
+              <div class="invalid-feedback">
+                Please provide a valid tradional authority.
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <label for="validationCustom03" class="form-label">specialty</label>
+              <input type="text" class="form-control" id="specialty" required>
+              <div class="invalid-feedback">
+                Please provide a valid tradional authority.
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <label for="validationCustom03" class="form-label">Description</label>
+              <textarea type="text" class="form-control" id="description" required>
+
+              </textarea>
+              <div class="invalid-feedback">
+                Please provide a valid tradional authority.
+              </div>
+            </div>
+            </br>
+
+
+
+
+
+            <!-- Vertically centered Modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+              Assign Role
+            </button>
+            <div class="modal fade" id="verticalycentered" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Assign Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form class="row g-3 needs-validation" novalidate>
+
+
+                      <div class="col-md-12">
+                        <label for="validationCustom04" class="form-label">Department</label>
+                        <select class="form-select" id="select_department" required>
+                          <option selected disabled value="">Choose Department...</option>
+
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select a valid department.
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <label for="validationCustom04" class="form-label">Title</label>
+                        <select class="form-select" id="select_title" required>
+                          <option selected disabled value="">Choose Title...</option>
+
+
+                        </select>
+                        <div class="invalid-feedback">
+                          Please select a valid title.
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <label for="validationCustom04" class="form-label">Specialty</label>
+                        <select class="form-select" id="select_specialty" required>
+                          <option selected disabled value="">Choose Specialty...</option>
+
+                        </select>
+
+                        <input type="hidden" value="<?php echo $_GET['roleId'] ?>" id="roleId">
+                        <input type="hidden" value="<?php echo $_GET['userID'] ?>" id="userId">
+                        <div class="invalid-feedback">
+                          Please select a valid user specialty.
+                        </div>
+                      </div>
+
+                  </div>
+
+                  </form>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="assign_role" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Vertically centered Modal-->
+
+
+
+
+          </div>
+
+
+
+
+
 
         </div>
       </div>
@@ -288,15 +403,15 @@ $userData = $user->getUsersDetails();
 
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Patient Details </h5>
+          <h5 class="card-title">User Details</h5>
 
 
           <!-- Custom Styled Validation -->
           <form class="row g-3 needs-validation" novalidate>
 
             <div class="col-md-12">
-              <label for="patientID" class="form-label">Patieny ID </label>
-              <input type="text" class="form-control" id="patientID" value='<?php echo $_GET['patientID'] ?>'>
+              <label for="patientID" class="form-label">user ID </label>
+              <input type="text" class="form-control" id="patientID" value='<?php echo $_GET['userID'] ?>'>
               <div class="valid-feedback">
                 Looks good!
               </div>
@@ -319,7 +434,7 @@ $userData = $user->getUsersDetails();
               <label for="dob" class="form-label">Date of Birth</label>
               <div class="input-group has-validation">
 
-                <input type="date" class="form-control" id="dob" aria-describedby="inputGroupPrepend" value="<?php echo $userData['last_name'] ?>" required>
+                <input type="date" class="form-control" id="dob" aria-describedby="inputGroupPrepend" value="<?php echo $userData['date_of_birth'] ?>" required>
                 <div class="invalid-feedback">
                   Please choose a date of birth.
                 </div>
@@ -328,12 +443,7 @@ $userData = $user->getUsersDetails();
 
             <div class="col-md-12">
               <label for="sex" class="form-label">Sex</label>
-              <select class="form-select" id="sex" required>
-                <option selected disabled value="">Choose Gender...</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-
-              </select>
+              <input type="text" class="form-control" id="sex" aria-describedby="inputGroupPrepend" value="<?php echo $userData['sex'] ?>" required>
               <div class="invalid-feedback">
                 Please select a valid region.
               </div>
@@ -343,61 +453,27 @@ $userData = $user->getUsersDetails();
               <label for="contactAddress" class="form-label">Contact Address</label>
               <div class="input-group has-validation">
 
-                <input type="date" class="form-control" id="contactAddress" aria-describedby="inputGroupPrepend" required>
+
+
+                <textarea type="text" class="form-control" id="contactAddress" aria-describedby="inputGroupPrepend" required><?php echo $userData['contact_address'] ?> </textarea>
                 <div class="invalid-feedback">
                   Please choose a contact address.
                 </div>
               </div>
             </div>
             <div class="col-md-12">
-              <label for="email" class="form-label">Email(Optional)</label>
+              <label for="email" class="form-label">Email Address</label>
               <div class="input-group has-validation">
 
-                <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend">
+                <input type="email" class="form-control" id="email" value="<?php echo $userData['email'] ?>" aria-describedby="inputGroupPrepend">
                 <div class="invalid-feedback">
                   Please choose a email.
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <label for="validationCustom04" class="form-label">Region</label>
-              <select class="form-select" id="select_region" required>
-                <option selected disabled value="">Choose Region...</option>
-                <option value="northern">Northen Region</option>
-                <option value="central">Central Region</option>
-                <option value="southern">Sourthern Region</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid region.
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom04" class="form-label">District</label>
-              <select class="form-select" id="select_district" required>
-                <option selected disabled value="">Choose District...</option>
-
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid district.
-              </div>
-            </div>
-            <div class="col-md-3">
-              <label for="validationCustom03" class="form-label">TA</label>
-              <input type="text" class="form-control" id="ta" required>
-              <div class="invalid-feedback">
-                Please provide a valid tradional authority.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="validationCustom05" class="form-label">Village</label>
-              <input type="text" class="form-control" id="village" required>
-              <div class="invalid-feedback">
-                Please provide village name .
-              </div>
 
 
-            </div>
+
 
 
             <div class="col-12">
@@ -406,9 +482,6 @@ $userData = $user->getUsersDetails();
 
           </form><!-- End Custom Styled Validation -->
 
-          <div class="col-12">
-            <button class="btn btn-primary" id="save_patient">Submit form</button>
-          </div>
 
         </div>
       </div>
@@ -444,7 +517,7 @@ $userData = $user->getUsersDetails();
 
 
 
-  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/user/view_user_details.js"></script>
 
 
 </body>

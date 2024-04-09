@@ -19,5 +19,9 @@ if (isset($_POST["userLogIn"])) {
 
   $user = new User("", "", "", "", "", "", $_POST["email"], $_POST["password"]);
   $user->userLogIn();
-  
 }
+
+// if (isset($_POST["setUserRole"])) {
+//   $userValues = $_POST["setUserRole"];
+//   $user = new Role("");
+// }

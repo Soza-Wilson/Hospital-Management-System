@@ -12,7 +12,9 @@ $(document).ready(() => {
 
   const registerRole = () => {
     roleValues = {
-      name: $("#roleName").val(),
+
+      title: $("#title").val(),
+      specialty: $("#specialty").val(),
       department: $("#department").val(),
       description: $("#roleDescription").val(),
     };

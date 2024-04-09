@@ -12,19 +12,18 @@ $(document).ready(() => {
 
   const registerPatient = () => {
     const patientValues = {
-      firstName: $("#firstName").val(),
-      lastName: $("#lastName").val(),
+      fullName: $("#fullName").val(),
       dob: $("#dob").val(),
       sex: $("#sex").val(),
-      contactAddress: $("#contactAddress").val(),
+      contactNumber: $("#contactNumber").val(),
       email: $("#email").val(),
       region: $("#select_region").val(),
       district: $("#select_district").val(),
       ta: $("#ta").val(),
       village: $("#village").val(),
+      userId: $("#userId").val(),
+      contactAdrress: $("#contactAddress").val(),
     };
-
-    
 
     $.post(
       "../../controller/patient.php",
@@ -32,8 +31,7 @@ $(document).ready(() => {
         registerPatient: patientValues,
       },
       (data) => {
-        alert(data);
-        window.location = "patient.php";
+        window.location = "register-relative.php?patientId="+parseInt(data)+"";
       }
     );
   };

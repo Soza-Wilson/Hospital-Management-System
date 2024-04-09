@@ -10,6 +10,6 @@ spl_autoload_register(function ($class) {
 if (isset($_POST['registerRole'])) {
 
     $roleData = $_POST['registerRole'];
-    $role = new Role($roleData['name'], $roleData['department'], $roleData['description']);
+    $role = new Role($roleData['title'],$roleData['specialty'], $roleData['department'], $roleData['description']);
     echo $role->addRole();
 }

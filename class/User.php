@@ -53,8 +53,8 @@ class User
             $result = $this->con->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-
-                    $_SESSION['userID'] = $row['user_id'];
+                    session_start();
+                    $_SESSION['user'] = $row['user_id'];
                     $_SESSION['firstName'] = $row['first_name'];
                     $_SESSION['lastName'] = $row['last_name'];
                     $this->navigateUser($row['role_id']);
@@ -110,12 +110,30 @@ class User
         }
     }
 
-    public function getUsers(): object
+
+
+    public function getActiveUsers(): object
     {
 
         try {
             //code...
-            $sql = "SELECT * FROM  `user`";
+            $sql = "SELECT `user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`, `specialty`,`department_name`,user.role_id FROM `user`
+             INNER JOIN `user_role` ON user_role.role_id = user.role_id INNER JOIN `department` ON department.department_id = user_role.department";
+            $result = $this->con->query($sql);
+            if ($result->num_rows > 0) {
+                return $result;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getInactiveUsers()
+    {
+
+        try {
+            //code...
+            $sql = "SELECT * FROM  `user` WHERE `role_id` is NULL";
             $result = $this->con->query($sql);
             if ($result->num_rows > 0) {
                 return $result;
@@ -126,14 +144,36 @@ class User
     }
 
 
-    public function getUsersDetails(): array
+    public function getUser(): array
     {
-        $sql = "SELECT 1 FROM `user` WHERE `user_id` = '$this->userID'";
-        $result = $this->con->query($sql);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                return $row;
+
+        try {
+            //code...
+            $sql = "SELECT * FROM `user` WHERE `user_id` = '$this->userID' ";
+            $result = $this->con->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    return $row;
+                }
             }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function setUserRole($userId, $roleId): string
+    {
+
+        try {
+            //code...
+            $sql = "UPDATE `user` SET `role_id` = '$roleId' WHERE `user_id` = '$userId'";
+            $statement = $this->con->prepare($sql);
+            if ($statement->execute()) {
+                mysqli_close($this->con);
+                return "updated";
+            };
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 }

@@ -3,43 +3,44 @@
 
 class DBSetup
 {
-    use DBConnection;
-    public function __construct()
-    {
-        $this->con = mysqli_connect($this->HOST, 'root', $this->PASSWORD, '', $this->PORT);
-    }
+        use DBConnection;
+        public function __construct()
+        {
+                $this->con = mysqli_connect($this->HOST, 'root', $this->PASSWORD, '', $this->PORT);
+        }
 
 
 
-    public function createDatabase(): bool
-    {
-        if ($this->con) {
-            $db = mysqli_query($this->con, "CREATE DATABASE IF NOT EXISTS bwaila_hospital_schema");
-            if ($db) {
+        public function createDatabase(): bool
+        {
+                if ($this->con) {
+                        $db = mysqli_query($this->con, "CREATE DATABASE IF NOT EXISTS bwaila_hospital_schema");
+                        if ($db) {
 
-                try {
+                                try {
 
-                    $sql = "CREATE USER 'hms_user'@'localhost' IDENTIFIED BY 'zHe3TPmnCBH'";
-                    mysqli_query($this->con, $sql);
+                                        $sql = "CREATE USER 'hms_user'@'localhost' IDENTIFIED BY 'zHe3TPmnCBH'";
+                                        mysqli_query($this->con, $sql);
 
-                    mysqli_select_db($this->con, "bwaila_hospital_schema");
+                                        mysqli_select_db($this->con, "bwaila_hospital_schema");
 
-                    $sql = "CREATE TABLE department(department_id INT PRIMARY KEY AUTO_INCREMENT,   
+                                        $sql = "CREATE TABLE department(department_id INT PRIMARY KEY AUTO_INCREMENT,   
                     department_name TEXT,
                     description VARCHAR(300))";
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "CREATE TABLE user_role(role_id INT PRIMARY KEY AUTO_INCREMENT, 		
-                                     role_name TEXT,
+                                        $sql = "CREATE TABLE user_role(role_id INT PRIMARY KEY AUTO_INCREMENT, 	
+                                        title TEXT,	
+                                        specialty TEXT,
                                      department INT,
                                      description VARCHAR(300),
                                      FOREIGN KEY(department)REFERENCES department(department_id))";
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
-                    $sql = "CREATE TABLE user(user_id INT PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE user(user_id INT PRIMARY KEY AUTO_INCREMENT, 
                             first_name TEXT,
                             last_name TEXT,
                             date_of_birth DATE,
@@ -51,20 +52,19 @@ class DBSetup
                             role_id INT,
                             FOREIGN KEY(role_id)REFERENCES user_role(role_id)) ";
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "CREATE TABLE patient(patient_id INT PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE patient(patient_id INT PRIMARY KEY AUTO_INCREMENT, 
                             
-                            first_name TEXT,
-                            last_name TEXT,
+                            full_name TEXT,
                             date_of_birth DATE,
                             sex TEXT,
                             registered_date DATE,
                             district TEXT,
                             village TEXT,
                             TA TEXT,
-                            contactNumber VARCHAR(200),
+                            contact_number VARCHAR(200),
                             email VARCHAR(100),
                             user_id INT,
                             contact_address VARCHAR(400),
@@ -72,11 +72,11 @@ class DBSetup
                             FOREIGN KEY(user_id)REFERENCES user(user_id)) ";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
 
-                    $sql = "CREATE TABLE relative(ralative_id INT PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE relative(ralative_id INT PRIMARY KEY AUTO_INCREMENT, 
                             first_name TEXT,
                             last_name TEXT,
                             residence VARCHAR(300),
@@ -87,9 +87,9 @@ class DBSetup
                             patient_id INT,
 
                             FOREIGN KEY(patient_id)REFERENCES patient(patient_id)) ";
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
-                    $sql = "CREATE TABLE diagnosis(diagnosis_id int PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE diagnosis(diagnosis_id int PRIMARY KEY AUTO_INCREMENT, 
                             
                             diagnosis_name TEXT,
                             diagnosis_date DATE,
@@ -100,10 +100,10 @@ class DBSetup
                             FOREIGN KEY(patient)REFERENCES patient(patient_id)) ";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "CREATE TABLE treatement(treatment_id int PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE treatement(treatment_id int PRIMARY KEY AUTO_INCREMENT, 
                             
                             treatment_name TEXT,
                             treatment_date date,
@@ -114,18 +114,18 @@ class DBSetup
                             FOREIGN KEY(patient)REFERENCES patient(patient_id)) ";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "CREATE TABLE appointment_type(appointment_type_id INT PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE appointment_type(appointment_type_id INT PRIMARY KEY AUTO_INCREMENT, 
                             appointment_name TEXT,
                             description VARCHAR(300)) ";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "CREATE TABLE appointment(appointment_id int PRIMARY KEY AUTO_INCREMENT, 
+                                        $sql = "CREATE TABLE appointment(appointment_id int PRIMARY KEY AUTO_INCREMENT, 
                             patient INT,
                             doctor INT,
                             appointment_date DATE,
@@ -136,50 +136,52 @@ class DBSetup
                             FOREIGN KEY(type)REFERENCES appointment_type(appointment_type_id)) ";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
-                    $sql = "CREATE TABLE referrel(referrel_id INT PRIMARY KEY AUTO_INCREMENT, 
-                            
+                                        $sql = "CREATE TABLE referrel(referrel_id INT PRIMARY KEY AUTO_INCREMENT, 
+                                
+                            referrer_name TEXT,
                             hospital_name TEXT,
                             region TEXT,
-                            district DATE,
+                            district TEXT,
                             area_name TEXT,
                             case_description VARCHAR(300),
-                            appointment_id INT,
-                            FOREIGN KEY(appointment_id)REFERENCES appointment(appointment_id)) ";
+                            patient_id INT,
+                            documentation TEXT,
+                            FOREIGN KEY(patient_id)REFERENCES patient(patient_id)) ";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    //     Creating system admin and their department 
+                                        //     Creating system admin and their department 
 
 
-                    $sql = "INSERT INTO `department`(`department_id`, `department_name`, `description`)
+                                        $sql = "INSERT INTO `department`(`department_id`, `department_name`, `description`)
                      VALUES ('1','adminstration','system administration')";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "INSERT INTO `user_role`(`role_id`, `role_name`, `department`, `description`) 
-                    VALUES ('1','system adminstrator','1','Handle all adminstrative tasks')";
+                                        $sql = "INSERT INTO `user_role`(`role_id`,`title`, `specialty`, `department`, `description`) 
+                    VALUES ('1','admin','system adminstrator','1','Handle all adminstrative tasks')";
 
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    $sql = "INSERT INTO `user`(`user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`, `role_id`) 
+                                        $sql = "INSERT INTO `user`(`user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`, `role_id`) 
                     VALUES ('1','admin','admin','2222-02-22','-','2222-02-22','None','admin@admin.com','0000','1')";
 
-                    mysqli_query($this->con, $sql);
+                                        mysqli_query($this->con, $sql);
 
 
-                    return true;
-                } catch (\Throwable $th) {
-                    throw $th;
+                                        return true;
+                                } catch (\Throwable $th) {
+                                        throw $th;
+                                }
+                        }
                 }
-            }
         }
-    }
 }

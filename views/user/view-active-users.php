@@ -1,3 +1,5 @@
+
+
 <?php session_start();
 $user = $_SESSION['user'];
 
@@ -12,7 +14,6 @@ $userRole = $role->getRole($user)
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +21,7 @@ $userRole = $role->getRole($user)
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bwaila MHS / Department Details </title>
+  <title> Bwaila HMS / View Users </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -29,8 +30,8 @@ $userRole = $role->getRole($user)
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="../../https://fonts.gstatic.com" rel="preconnect">
+  <link href="../../https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -45,8 +46,6 @@ $userRole = $role->getRole($user)
   <link href="../../assets/css/style.css" rel="stylesheet">
 
 
-</head>
-
 <body>
 
   <!-- ======= Header ======= -->
@@ -60,7 +59,7 @@ $userRole = $role->getRole($user)
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <!-- End Search Bar -->
+
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -137,7 +136,7 @@ $userRole = $role->getRole($user)
             </a>
           </li>
           <li>
-            <a href="../patient/view-patients.php">
+            <a href="../patient/view-patients.php" >
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
             </a>
           </li>
@@ -161,14 +160,14 @@ $userRole = $role->getRole($user)
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-lines-fill"></i><span>User & Role </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="../../views/user/view-active-users.php">
-              <i class="bi bi-circle"></i><span>Active Users </span>
+            <a href="view-active-users.php" class= 'active'>
+              <i class="bi bi-circle"></i><span>Active Users</span>
             </a>
           </li>
           <li>
-            <a href="../../views/user/view-inactive-users.php">
+            <a href="view-inactive-users.php">
               <i class="bi bi-circle"></i><span>Inactive Users</span>
             </a>
           </li>
@@ -179,18 +178,18 @@ $userRole = $role->getRole($user)
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-shop"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="register-department.php">
+            <a href="../department/register-department.php">
               <i class="bi bi-circle"></i><span>Register Department</span>
             </a>
           </li>
           <li>
-            <a href="departments.php" class="active">
-              <i class="bi bi-circle"></i><span>View Departments</span>
+            <a href="../department/departments.php">
+              <i class="bi bi-circle"></i><span>Departments</span>
             </a>
           </li>
-
+          
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -224,15 +223,17 @@ $userRole = $role->getRole($user)
     </ul>
 
   </aside><!-- End Sidebar-->
+
+
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Department</h1>
+      <h1>User Data</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Department</li>
-          <li class="breadcrumb-item active">Department Details</li>
+          <li class="breadcrumb-item">User</li>
+          <li class="breadcrumb-item active">View Registered Users</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -241,189 +242,86 @@ $userRole = $role->getRole($user)
       <div class="row">
         <div class="col-lg-12">
 
-          <?php
-
-          spl_autoload_register(function ($class) {
-            if (file_exists('../../class/' . $class . '.php')) {
-              require_once '../../class/' . $class . '.php';
-            }
-          });
-
-          $department = new Department("", "")
-
-          ?>
-
-
-          <!-- Default Accordion -->
-          <!-- Default Card -->
           <div class="card">
             <div class="card-body">
-              <?php
-
-              $departmentData = $department->getDepartment($_GET['id']);
-
-              while ($row = $departmentData->fetch_assoc()) {
-                $department_id = $row['department_id'];
-                $name = $row['department_name'];
-                $description = $row['description'];
-              }
+              <h5 class="card-title">Users</h5>
 
 
-              echo '<h5 class="card-title">' . $name . '</h5>
-            ' . $description . '';
-
-              ?>
-
-            </div>
-
-
-
-
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Department Roles</h5>
-
-
-
-
-              <!-- Default Table -->
-              <table class="table">
+              <table class="datatable">
                 <thead>
                   <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">title</th>
-                    <th scope="col">specialty</th>
-                    <th scope="col">description</th>
+                    <th>
+                      <b>N</b>ame
+                    </th>
+
+                    <th>Sex</th>
+                    <th data-type="date" data-format="YYYY/DD/MM">Registered Date</th>
+
+                    <th>Role
+                    <th>
+
+
                   </tr>
                 </thead>
                 <tbody>
+
+
                   <?php
+
                   spl_autoload_register(function ($class) {
                     if (file_exists('../../class/' . $class . '.php')) {
                       require_once '../../class/' . $class . '.php';
                     }
                   });
 
-                  $role = new Role("","", $_GET['id'], "");
-                  $roleData = $role->getRoles();
-                
 
-                  if ($roleData !== null) {
-                    $result = $roleData->fetch_assoc();
-                    do {
-                      $id = $result['role_id'];
-                      $title = $result['title'];
-                      $specialty = $result['specialty'];
-                      $description = $result['description'];
 
-                      echo "
-        
+                  $user= new USER("", "", "", "", "", "", "", "", "", "", "");
+                  $userData = $user->getActiveUsers();
+
+                  while ($row = $userData->fetch_assoc()) {
+                    $name = $row['first_name'] . ' ' . $row['last_name'];
+                    $dateOfBirth = $row['date_of_birth'];
+                    $sex = $row['sex'];
+                    $registerDate = Util::convert_date($row['registered_date']);
+                    $role = $row['specialty'];
+                    $userID = $row['user_id'];
+                    $userRole = $row['role_id'];
+
+
+
+                    echo "
                     <tr>
-                    <th scope='row'>$id</th>
-                    <td>$title</td>
-                    <td>$specialty</td>
-                    <td>$description</td>
-
-                  </tr>";
-      
-                    } while ($result = $roleData->fetch_assoc());
-                  } else {
-                    echo "<tr><td colspan='5'>No data available</td></tr>";
+                    <td>$name</td>
+                
+                    <td>$sex</td>
+                    <td>$registerDate</td>
+                    <td> <span class='badge bg-success'>$role</span></td>
+                    <td> <a href='view-user-details.php?userID=$userID&roleId=$userRole' class='btn btn-primary'>view</a></td>
+                   
+                 
+                  </tr>
+                    ";
                   }
 
-                 
-                
+
 
                   ?>
+
+
+                  <!-- Table with stripped rows -->
 
 
 
                 </tbody>
               </table>
-              <!-- End Default Table Example -->
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"></h5>
-
-
-              <!-- Vertically centered Modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
-                New Role
-                <i class='bi bi-plus '></i></button>
-              <div class="modal fade" id="verticalycentered" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Register New Role</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate>
-
-                      <div class="col-md-12">
-                        <label for="validationCustom04" class="form-label">Title</label>
-                        <select class="form-select" id="title" required>
-                          <option selected disabled value="">Choose Title...</option>
-                          <option value="doctor">Doctor</option>
-                          <option value="nurse">Nurse</option>
-                          <option value="nurse">Receptionist</option>
-                          <option value="nurse">Admin</option>
-
-                        </select>
-                        <div class="invalid-feedback">
-                          Please select a valid title.
-                        </div>
-                      </div>
-                        <div class="col-12">
-                          <label for="roleName" class="form-label">specialty</label>
-                          <input type="text" name="specialty" class="form-control" id="specialty" required>
-                          <input type="hidden" name="department" class="form-control" id="department" value="<?php echo $_GET['id'] ?>">
-                          <div class="invalid-feedback">Please, enter user specialty</div>
-                        </div>
-
-                        <div class="col-12">
-                          <label for="roleDescription" class="form-label">Description</label>
-                          <textarea type="text" name="roleDescription" class="form-control" id="roleDescription" required></textarea>
-                          <div class="invalid-feedback">Please, enter role description!</div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" id="save_role" class="btn btn-primary">Save role</button>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- End Vertically centered Modal-->
+              <!-- End Table with stripped rows -->
 
             </div>
           </div>
 
         </div>
-
+      </div>
     </section>
 
   </main><!-- End #main -->
@@ -447,11 +345,9 @@ $userRole = $role->getRole($user)
   <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
-  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
 
   <!-- Template Main JS File -->
-
-  <script src="../../assets/js/department/department_details.js"></script>
+  <script src="../../assets/js/main.js"></script>
 
 </body>
 

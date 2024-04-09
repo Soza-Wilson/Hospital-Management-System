@@ -1,3 +1,17 @@
+<?php session_start();
+$user = $_SESSION['user'];
+
+spl_autoload_register(function ($class) {
+  if (file_exists('../../class/' . $class . '.php')) {
+    require_once '../../class/' . $class . '.php';
+  }
+});
+
+$role = new Role("", "", "", "");
+$userRole = $role->getRole($user)
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,58 +70,35 @@
           </a>
         </li><!-- End Search Icon-->
 
-        
-
-        
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo ucfirst($_SESSION['firstName'])  ?> . <?php echo ucfirst($_SESSION['lastName']) ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?php echo ucfirst($_SESSION['firstName']) ?> . <?php echo ucfirst($_SESSION['lastName']) ?></h6>
+              <span><?php echo $userRole; ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
             </li>
+        
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -139,13 +130,19 @@
         </a>
         <ul id="components-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="patient/register-patient.php"  class="active">
+            <a href="patient/register-patient.php" class="active">
               <i class="bi bi-circle"></i><span>Register Patient</span>
             </a>
           </li>
           <li>
             <a href="view-patients.php">
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="register-referrel.php" >
+              <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
           <li>
@@ -158,11 +155,11 @@
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>
-          
+
         </ul>
       </li><!-- End Components Nav -->
 
-     
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -170,13 +167,13 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="../user/view-active-users.php">
+              <i class="bi bi-circle"></i><span>Active Users</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+            <a href="../user/view-inactive-users.php">
+              <i class="bi bi-circle"></i><span>Inactive Users</span>
             </a>
           </li>
         </ul>
@@ -188,20 +185,16 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
+            <a href="../department/register-department.php">
+              <i class="bi bi-circle"></i><span>Register Department</span>
             </a>
           </li>
           <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
+            <a href="../department/departments.php">
+              <i class="bi bi-circle"></i><span>View Departments</span>
             </a>
           </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
+         
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -228,10 +221,10 @@
         </ul>
       </li><!-- End Icons Nav -->
 
-      
 
-     
-      
+
+
+
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -261,19 +254,13 @@
           <!-- Custom Styled Validation -->
           <form class="row g-3 needs-validation" novalidate>
             <div class="col-md-12">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" required>
-              <div class="valid-feedback">
-                Looks good!
+              <label for="firstName" class="form-label">fullname</label>
+              <input type="text" class="form-control" id="fullName" required>
+              <div class="invalid-feedback">
+                Please enter full name
               </div>
             </div>
-            <div class="col-md-12">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName"  required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
+           
             <div class="col-md-12">
               <label for="dob" class="form-label">Date of Birth</label>
               <div class="input-group has-validation">
@@ -287,22 +274,22 @@
 
             <div class="col-md-12">
               <label for="sex" class="form-label">Sex</label>
-              <select class="form-select"  id="sex" required>
+              <select class="form-select" id="sex" required>
                 <option selected disabled value="">Choose Gender...</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-             
+
               </select>
               <div class="invalid-feedback">
                 Please select a valid region.
               </div>
             </div>
-           
+
             <div class="col-md-12">
-              <label for="contactAddress" class="form-label">Contact Address</label>
+              <label for="contactAddress" class="form-label">Contact Number</label>
               <div class="input-group has-validation">
 
-                <input type="date" class="form-control" id="contactAddress" aria-describedby="inputGroupPrepend" required>
+                <input type="text" class="form-control" id="contactNumber" aria-describedby="inputGroupPrepend" required>
                 <div class="invalid-feedback">
                   Please choose a contact address.
                 </div>
@@ -318,9 +305,20 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-md-12">
+              <label for="email" class="form-label">contact Address</label>
+              <div class="input-group has-validation">
+
+                <textarea type="text" class="form-control" id="contactAddress" aria-describedby="inputGroupPrepend"></textarea>
+                <div class="invalid-feedback">
+                  Please choose a email.
+                </div>
+              </div>
+            </div>
             <div class="col-md-3">
               <label for="validationCustom04" class="form-label">Region</label>
-              <select class="form-select"  id="select_region" required>
+              <select class="form-select" id="select_region" required>
                 <option selected disabled value="">Choose Region...</option>
                 <option value="northern">Northen Region</option>
                 <option value="central">Central Region</option>
@@ -334,7 +332,7 @@
               <label for="validationCustom04" class="form-label">District</label>
               <select class="form-select" id="select_district" required>
                 <option selected disabled value="">Choose District...</option>
-               
+
               </select>
               <div class="invalid-feedback">
                 Please select a valid district.
@@ -347,10 +345,11 @@
                 Please provide a valid tradional authority.
               </div>
             </div>
-            
+
             <div class="col-md-3">
               <label for="validationCustom05" class="form-label">Village</label>
               <input type="text" class="form-control" id="village" required>
+              <input type="hidden" id="userId" value="<?php echo $user; ?>">
               <div class="invalid-feedback">
                 Please provide village name .
               </div>
@@ -358,16 +357,16 @@
 
             </div>
 
-          
+
             <div class="col-12">
-              
+
             </div>
-            
+
           </form><!-- End Custom Styled Validation -->
 
           <div class="col-12">
-              <button class="btn btn-primary" id="save_patient">Submit form</button>
-            </div>
+            <button class="btn btn-primary" id="save_patient">Next</button>
+          </div>
 
         </div>
       </div>
@@ -404,7 +403,7 @@
 
 
   <script src="../../assets/js/main.js"></script>
-  <script src="../../assets/js/patient/register_patient__.js"></script>
+  <script src="../../assets/js/patient/register_patient.js"></script>
 
 </body>
 

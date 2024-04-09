@@ -1,3 +1,17 @@
+<?php session_start();
+$user = $_SESSION['user'];
+
+spl_autoload_register(function ($class) {
+  if (file_exists('../../class/' . $class . '.php')) {
+    require_once '../../class/' . $class . '.php';
+  }
+});
+
+$role = new Role("", "", "", "");
+$userRole = $role->getRole($user)
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,69 +68,35 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
-
-
-
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-
-
-
-
-        </li><!-- End Messages Nav -->
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo ucfirst($_SESSION['firstName'])  ?> . <?php echo ucfirst($_SESSION['lastName']) ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6><?php echo ucfirst($_SESSION['firstName']) ?> . <?php echo ucfirst($_SESSION['lastName']) ?></h6>
+              <span><?php echo $userRole; ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
             </li>
+        
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -158,6 +138,11 @@
             </a>
           </li>
           <li>
+            <a href="register-referrel.php" >
+              <i class="bi bi-circle"></i><span>Referrals</span>
+            </a>
+          </li>
+          <li>
             <a href="register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
@@ -179,13 +164,13 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="../user/view-active-users.php">
+              <i class="bi bi-circle"></i><span>Active Users</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+            <a href="../user/view-inactive-users.php">
+              <i class="bi bi-circle"></i><span>Inactive Users</span>
             </a>
           </li>
         </ul>
@@ -297,11 +282,13 @@
 
 
 
-                  $patient = new Patient("", "", "", "", "", "", "", "", "", "", "");
+                  $patient = new Patient("", "", "", "", "", "", "", "", "", "", "","");
                   $patientData = $patient->getPatients();
 
+                  if(!empty($patientData)){
+
                   while ($row = $patientData->fetch_assoc()) {
-                    $name = $row['first_name'] . ' ' . $row['last_name'];
+                    $name = $row['full_name'];
                     $dateOfBirth = $row['date_of_birth'];
                     $sex = $row['sex'];
                     $registerDate = Util::convert_date($row['registered_date']);
@@ -322,6 +309,8 @@
                   </tr>
                     ";
                   }
+
+                }
 
 
 

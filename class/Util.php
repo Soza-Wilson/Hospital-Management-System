@@ -23,4 +23,10 @@ class Util
         $date = date_format($date, "d-m-Y");
         return $date;
     }
+
+    static function toUppercase($word)
+    {
+        $wordWithUppercase = ucfirst($word);
+        return $wordWithUppercase;
+    }
 }

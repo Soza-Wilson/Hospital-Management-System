@@ -12,7 +12,6 @@ $userRole = $role->getRole($user)
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@ $userRole = $role->getRole($user)
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bwaila MHS / Department Details </title>
+  <title>Bwaila MHS / Register Relative</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -29,8 +28,8 @@ $userRole = $role->getRole($user)
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="../../https://fonts.gstatic.com" rel="preconnect">
+  <link href="../../https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -111,7 +110,6 @@ $userRole = $role->getRole($user)
       </ul>
     </nav><!-- End Icons Navigation -->
 
-
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -130,24 +128,30 @@ $userRole = $role->getRole($user)
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-emoji-dizzy"></i><span>Patient</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="../patient/register-patient.php">
+            <a href="patient/register-patient.php" class="active">
               <i class="bi bi-circle"></i><span>Register Patient</span>
             </a>
           </li>
           <li>
-            <a href="../patient/view-patients.php">
+            <a href="view-patients.php">
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
             </a>
           </li>
+
           <li>
-            <a href="../patient/register-diagnosis.php">
+            <a href="register-referrel.php" >
+              <i class="bi bi-circle"></i><span>Referrals</span>
+            </a>
+          </li>
+          <li>
+            <a href="register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="../patient/register-treatment.php">
+            <a href="register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>
@@ -163,13 +167,13 @@ $userRole = $role->getRole($user)
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="../../views/user/view-active-users.php">
-              <i class="bi bi-circle"></i><span>Active Users </span>
+            <a href="tables-general.html">
+              <i class="bi bi-circle"></i><span>General Tables</span>
             </a>
           </li>
           <li>
-            <a href="../../views/user/view-inactive-users.php">
-              <i class="bi bi-circle"></i><span>Inactive Users</span>
+            <a href="tables-data.html">
+              <i class="bi bi-circle"></i><span>Data Tables</span>
             </a>
           </li>
         </ul>
@@ -179,18 +183,18 @@ $userRole = $role->getRole($user)
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-shop"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="register-department.php">
-              <i class="bi bi-circle"></i><span>Register Department</span>
+            <a href="../user/view-active-users.php">
+              <i class="bi bi-circle"></i><span>Active Users</span>
             </a>
           </li>
           <li>
-            <a href="departments.php" class="active">
-              <i class="bi bi-circle"></i><span>View Departments</span>
+            <a href="../user/view-inactive-users.php">
+              <i class="bi bi-circle"></i><span>Inactive User</span>
             </a>
           </li>
-
+          
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -224,206 +228,113 @@ $userRole = $role->getRole($user)
     </ul>
 
   </aside><!-- End Sidebar-->
+
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Department</h1>
+      <h1>Register Relative</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Department</li>
-          <li class="breadcrumb-item active">Department Details</li>
+          <li class="breadcrumb-item">Patient</li>
+          <li class="breadcrumb-item ">Register Patient</li>
+          <li class="breadcrumb-item active">Register Relative</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <?php
-
-          spl_autoload_register(function ($class) {
-            if (file_exists('../../class/' . $class . '.php')) {
-              require_once '../../class/' . $class . '.php';
-            }
-          });
-
-          $department = new Department("", "")
-
-          ?>
 
 
-          <!-- Default Accordion -->
-          <!-- Default Card -->
-          <div class="card">
-            <div class="card-body">
-              <?php
+    <div class="col-lg-12">
 
-              $departmentData = $department->getDepartment($_GET['id']);
-
-              while ($row = $departmentData->fetch_assoc()) {
-                $department_id = $row['department_id'];
-                $name = $row['department_name'];
-                $description = $row['description'];
-              }
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Enter Relative Details </h5>
 
 
-              echo '<h5 class="card-title">' . $name . '</h5>
-            ' . $description . '';
-
-              ?>
-
+          <!-- Custom Styled Validation -->
+          <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-12">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" class="form-control" id="firstName" aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback">
+                Please enter valid first name.
+              </div>
             </div>
-
-
-
-
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Department Roles</h5>
-
-
-
-
-              <!-- Default Table -->
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">title</th>
-                    <th scope="col">specialty</th>
-                    <th scope="col">description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  spl_autoload_register(function ($class) {
-                    if (file_exists('../../class/' . $class . '.php')) {
-                      require_once '../../class/' . $class . '.php';
-                    }
-                  });
-
-                  $role = new Role("","", $_GET['id'], "");
-                  $roleData = $role->getRoles();
-                
-
-                  if ($roleData !== null) {
-                    $result = $roleData->fetch_assoc();
-                    do {
-                      $id = $result['role_id'];
-                      $title = $result['title'];
-                      $specialty = $result['specialty'];
-                      $description = $result['description'];
-
-                      echo "
-        
-                    <tr>
-                    <th scope='row'>$id</th>
-                    <td>$title</td>
-                    <td>$specialty</td>
-                    <td>$description</td>
-
-                  </tr>";
-      
-                    } while ($result = $roleData->fetch_assoc());
-                  } else {
-                    echo "<tr><td colspan='5'>No data available</td></tr>";
-                  }
-
-                 
-                
-
-                  ?>
-
-
-
-                </tbody>
-              </table>
-              <!-- End Default Table Example -->
+            <div class="col-md-12">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="lastName" aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback">
+                Please enter valid last name.
+              </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"></h5>
+            <div class="col-md-12">
+              <label for="dob" class="form-label">Contact Number</label>
+              <div class="input-group has-validation">
 
-
-              <!-- Vertically centered Modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
-                New Role
-                <i class='bi bi-plus '></i></button>
-              <div class="modal fade" id="verticalycentered" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Register New Role</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate>
-
-                      <div class="col-md-12">
-                        <label for="validationCustom04" class="form-label">Title</label>
-                        <select class="form-select" id="title" required>
-                          <option selected disabled value="">Choose Title...</option>
-                          <option value="doctor">Doctor</option>
-                          <option value="nurse">Nurse</option>
-                          <option value="nurse">Receptionist</option>
-                          <option value="nurse">Admin</option>
-
-                        </select>
-                        <div class="invalid-feedback">
-                          Please select a valid title.
-                        </div>
-                      </div>
-                        <div class="col-12">
-                          <label for="roleName" class="form-label">specialty</label>
-                          <input type="text" name="specialty" class="form-control" id="specialty" required>
-                          <input type="hidden" name="department" class="form-control" id="department" value="<?php echo $_GET['id'] ?>">
-                          <div class="invalid-feedback">Please, enter user specialty</div>
-                        </div>
-
-                        <div class="col-12">
-                          <label for="roleDescription" class="form-label">Description</label>
-                          <textarea type="text" name="roleDescription" class="form-control" id="roleDescription" required></textarea>
-                          <div class="invalid-feedback">Please, enter role description!</div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" id="save_role" class="btn btn-primary">Save role</button>
-                    </div>
-                  </div>
+                <input type="text" class="form-control" id="contactNumber" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                  Please enter contact number.
                 </div>
-              </div><!-- End Vertically centered Modal-->
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <label for="email" class="form-label">email(Optional)</label>
+              <input type="email" class="form-control" id="email">
+              <div class="invalid-feedback">
+                Please enter valid email.
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <label for="contactAddress" class="form-label">Relation</label>
+              <div class="input-group has-validation">
+
+                <input type="text" class="form-control" id="relation" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                  Please enter valid relation .
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="email" class="form-label">Residence</label>
+              <div class="input-group has-validation">
+
+                <textarea class="form-control" id="residence" ria-describedby="inputGroupPrepend" required></textarea>
+                <div class="invalid-feedback">
+                  Please enter valid residence.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="validationCustom04" class="form-label">Contact Address (Optional)</label>
+              <textarea class="form-control" id="contactAddress"></textarea>
+              <input type="hidden" value="<?php echo $_GET['patientId']; ?> " id="patientId">
 
             </div>
+
+
+
+
+            <div class="col-12">
+
+            </div>
+
+          </form><!-- End Custom Styled Validation -->
+
+          <div class="col-12">
+            <button class="btn btn-primary" id="saveRelative">save</button>
+            <button class="btn btn-danger" id="cancle">cancle</button>
           </div>
 
         </div>
+      </div>
 
+
+
+    </div>
+    </div>
     </section>
 
   </main><!-- End #main -->
@@ -449,9 +360,10 @@ $userRole = $role->getRole($user)
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
   <script src="../../assets/vendor/jquery/jquery.min.js"></script>
 
-  <!-- Template Main JS File -->
 
-  <script src="../../assets/js/department/department_details.js"></script>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/relative/register_relative__.js"></script>
 
 </body>
 
