@@ -1,16 +1,22 @@
-<?php session_start();
-$userId = $_SESSION['user'];
-
+<?php
+session_start();
+$user = $_SESSION['user'];
 spl_autoload_register(function ($class) {
     if (file_exists('../../class/' . $class . '.php')) {
         require_once '../../class/' . $class . '.php';
     }
 });
 
-$user = new User($userId, "", "", "", "", "", "", "","");
-$userData = $user->getUser();
+$patient = new Patient($_GET['patientID'], "", "", "", "", "", "", "", "", "", "", "");
+$patientData = $patient->getPatientDetails();
+
+$role = new Role("", "", "", "");
+$userRole = $role->getRole($user)
+
+
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +24,7 @@ $userData = $user->getUser();
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Bwaila HMS / User Profile</title>
+    <title>Bwaila HMS / View Patient Details </title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -42,13 +48,7 @@ $userData = $user->getUser();
     <!-- Template Main CSS File -->
     <link href="../../assets/css/style.css" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Jan 09 2024 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
 </head>
 
 <body>
@@ -64,7 +64,7 @@ $userData = $user->getUser();
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-
+        <!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -88,13 +88,18 @@ $userData = $user->getUser();
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6><?php echo ucfirst($_SESSION['firstName']) ?> . <?php echo ucfirst($_SESSION['lastName']) ?></h6>
-                            <span></span>
+                            <span><?php echo $userRole; ?></span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
-
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
 
                         <li>
                             <hr class="dropdown-divider">
@@ -109,8 +114,6 @@ $userData = $user->getUser();
 
                     </ul><!-- End Profile Dropdown Items -->
                 </li><!-- End Profile Nav -->
-
-
             </ul>
         </nav><!-- End Icons Navigation -->
 
@@ -122,9 +125,9 @@ $userData = $user->getUser();
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="../home.php">
+                <a class="nav-link " href="index.html">
                     <i class="bi bi-grid"></i>
-                    <span>Home</span>
+                    <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
@@ -132,25 +135,24 @@ $userData = $user->getUser();
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-emoji-dizzy"></i><span>Patient</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <ul id="components-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="patient/register-patient.php">
+                        <a href="../patientregister-patient.php">
                             <i class="bi bi-circle"></i><span>Register Patient</span>
                         </a>
                     </li>
                     <li>
-                        <a href="view-patients.php">
+                        <a href="../patientview-patients.php">
                             <i class="bi bi-circle"></i><span>View Registered Patients</span>
                         </a>
                     </li>
-
                     <li>
-                        <a href="../referrel/register-referrel.php">
+                        <a href="../referrelregister-referrel.php">
                             <i class="bi bi-circle"></i><span>Referrals</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../diagnosis/register-diagnosis.php">
+                        <a href="register-diagnosis.php" class="active">
                             <i class="bi bi-circle"></i><span>Add Diagnosis</span>
                         </a>
                     </li>
@@ -171,13 +173,13 @@ $userData = $user->getUser();
                 </a>
                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="../user/view-active-users.php">
-                            <i class="bi bi-circle"></i><span>Active Users</span>
+                        <a href="tables-general.html">
+                            <i class="bi bi-circle"></i><span>General Tables</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../user/view-inactive-users.php">
-                            <i class="bi bi-circle"></i><span>Inactive Users</span>
+                        <a href="tables-data.html">
+                            <i class="bi bi-circle"></i><span>Data Tables</span>
                         </a>
                     </li>
                 </ul>
@@ -189,16 +191,20 @@ $userData = $user->getUser();
                 </a>
                 <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="../department/register-department.php">
-                            <i class="bi bi-circle"></i><span>Register Department</span>
+                        <a href="charts-chartjs.html">
+                            <i class="bi bi-circle"></i><span>Chart.js</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../department/departments.php">
-                            <i class="bi bi-circle"></i><span>View Departments</span>
+                        <a href="charts-apexcharts.html">
+                            <i class="bi bi-circle"></i><span>ApexCharts</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a href="charts-echarts.html">
+                            <i class="bi bi-circle"></i><span>ECharts</span>
+                        </a>
+                    </li>
                 </ul>
             </li><!-- End Charts Nav -->
 
@@ -235,32 +241,47 @@ $userData = $user->getUser();
 
     <main id="main" class="main">
 
-        <div class="pagetitle">
-            <h1>Profile</h1>
+    <div class="pagetitle">
+            <h1> Diagnosis</h1>
             <nav>
                 <ol class="breadcrumb">
-
-
-                    <li class="breadcrumb-item active">Profile</li>
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Register Diagnosis</li>
+                    <li class="breadcrumb-item active">Enter Diagnosis Details </li>
+                    
                 </ol>
             </nav>
         </div><!-- End Page Title -->
-
         <section class="section profile">
             <div class="row">
                 <div class="col-xl-4">
 
                     <div class="card">
+
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                             <img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                            <h2><?php echo ucfirst($_SESSION['firstName']) ?> <?php echo ucfirst($_SESSION['lastName']) ?></h2>
-                            <h3><?php echo $userData["role"]; ?></h3>
+                            <h2><?php echo ucfirst($patientData["full_name"]) ?> </h2>
+                            <h3>DOB : <?php echo Util::convert_date($patientData['date_of_birth']);?> / Sex : <?php echo $patientData['sex']; ?></h3>
+                            <h6>District : <?php echo $patientData['district']; ?> /  village :<?php echo $patientData['village']; ?> TA : <span> <?php echo $patientData['TA']; ?> </span></h6>
+
 
                         </div>
                     </div>
 
+
+                    <div class="card">
+    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+        
+        <div class="card-header"> <h6> Diagnosis Assistant </h6></div>
+        <button class =" btn btn-dark rounded-pill"><i class="ri ri-bilibili-fill"></i></button>
+      
+
+    </div>
+</div>
+
                 </div>
+               
 
                 <div class="col-xl-8">
 
@@ -270,137 +291,97 @@ $userData = $user->getUser();
                             <ul class="nav nav-tabs nav-tabs-bordered">
 
                                 <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#diagnosis">Diagnosis</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#vitals">Vitals</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lab-test">Lab Test</button>
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Physical Examination</button>
                                 </li>
 
                             </ul>
                             <div class="tab-content pt-2">
 
-                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                               
 
-
-                                    <h5 class="card-title">Profile Details</h5>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">FullName</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($userData["first_name"]); echo " "; echo ucfirst($userData["last_name"]);?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Department</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($userData["department"]);?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Specialty</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($userData["role"]);?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Date Of Birth</div>
-                                        <div class="col-lg-9 col-md-8">USA</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Sex</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($userData["sex"])?></div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Contact Address</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($userData["contact_address"])?></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Phone</div>
-                                        <div class="col-lg-9 col-md-8">-</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Email</div>
-                                        <div class="col-lg-9 col-md-8"><?php echo ucfirst($userData["email"])?></div>
-                                    </div>
-
-                                </div>
-
-                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                <div class="tab-pane fade show active profile-overview profile-edit pt-3" id="diagnosis">
 
                                     <!-- Profile Edit Form -->
-                                    <form>
+                                    <form class="row g-3 needs-validation" >
 
 
                                         <div class="row mb-3">
-                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Present Complaint</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="fullName" type="text" class="form-control" id="firstName" value="<?php echo $userData['first_name']; ?>" required>
+                                            <textarea class="form-control diagnosis" placeholder="Enter complaint" id="presentComplaint" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Please enter complaint.
+                                            </div>
+                                         
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label" >History (Optional)</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="fullName" type="text" class="form-control" id="lastName" value="<?php echo $userData['last_name']; ?>" required>
+                                                <textarea class="form-control diagnosis" placeholder="Enter complaint history" id="history"></textarea>
+                                               
+                                         
+                                            
                                             </div>
                                         </div>
 
 
 
-                                       
+
 
                                         <div class="row mb-3">
-                                            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Date Of Birth</label>
+                                            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Diagnosis / Medical Condition Identified</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="dob" type="date" class="form-control" id="dob" value="<?php echo $userData['date_of_birth']; ?>">
+                                                <input name="diagnosisName" type="text" class="form-control diagnosis" placeholder="Enter condition identified" required>
+                                                <div class="invalid-feedback">
+                                                Please enter medical condition identified.
                                             </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Country" class="col-md-4 col-lg-3 col-form-label">Sex</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <select class="form-control" name="sex" id="sex">
-                                                    <option value="<?php echo $userData['sex']; ?>"><?php echo $userData['sex']; ?></option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Contact Address</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="address" type="text" class="form-control" id="Address" value="<?php echo $userData['contact_address']; ?>">
+                                         
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                                            <label for="Country" class="col-md-4 col-lg-3 col-form-label">Description</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                                               <textarea class="form-control diagnosis" placeholder="Enter Description" id="diagnosisDescription" required></textarea>
+                                               <div class="invalid-feedback">
+                                                Please enter condition description.
+                                            </div>
+                                         
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Advice (Optional)</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" class="form-control" id="Email" value="<?php echo $userData['email']; ?>">
+                                            <textarea class="form-control diagnosis" placeholder="Enter doctor advice" id="doctorAdvice" ></textarea>
+                                           
+                                          
                                             </div>
                                         </div>
 
                                         
+                                      
 
-                                        
 
-                                       
 
-                                        
+
+
+
+
+
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -409,63 +390,130 @@ $userData = $user->getUser();
 
                                 </div>
 
-                                <div class="tab-pane fade pt-3" id="profile-settings">
 
-                                    <!-- Settings Form -->
+                                <div class="tab-pane fade profile-edit pt-3" id="vitals">
+
+                                    <!-- Profile Edit Form -->
                                     <form>
 
+
                                         <div class="row mb-3">
-                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Tempereture</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                                                    <label class="form-check-label" for="changesMade">
-                                                        Changes made to your account
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                                                    <label class="form-check-label" for="newProducts">
-                                                        Information on new patient appointments
-                                                    </label>
-                                                </div>
-                                                
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                                                    <label class="form-check-label" for="securityNotify">
-                                                        Security alerts
-                                                    </label>
-                                                </div>
+                                                <input name="fullName" type="text" class="form-control" id="firstName"  required>
                                             </div>
                                         </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Blood Pressure</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="fullName" type="text" class="form-control" id="lastName"  required>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="row mb-3">
+                                            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Heart Rate</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="dob" type="text" class="form-control" id="dob" >
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="Country" class="col-md-4 col-lg-3 col-form-label">Respiratory Rate</label>
+                                            <div class="col-md-8 col-lg-9">
+                                               <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        
+                                        
+
+
+
+
+
+
+
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </div>
-                                    </form><!-- End settings Form -->
+                                    </form><!-- End Profile Edit Form -->
 
                                 </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="lab-test">
+
+                                    <!-- Profile Edit Form -->
+                                    <form>
+
+
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Urine Tests</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="fullName" type="text" class="form-control" id="firstName"  required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Blood Tests</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="fullName" type="text" class="form-control" id="lastName"  required>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="row mb-3">
+                                            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Emaging Studies</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="dob" type="text" class="form-control" id="dob" required >
+                                            </div>
+                                        </div>
+
+                                        
+                                        
+                                        
+
+
+
+
+
+
+
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+
+                                </div>
+
+                               
 
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
                                     <!-- Change Password Form -->
                                     <form>
 
                                         <div class="row mb-3">
-                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                            <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Urine Tests</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="password" type="password" class="form-control" id="currentPassword">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Blood Tests</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="newpassword" type="password" class="form-control" id="newPassword">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Imaging Studies</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="renewpassword" type="password" class="form-control" id="renewPassword">
                                             </div>
@@ -484,6 +532,8 @@ $userData = $user->getUser();
                     </div>
 
                 </div>
+
+               
             </div>
         </section>
 
@@ -497,7 +547,6 @@ $userData = $user->getUser();
 
     </footer><!-- End Footer -->
 
-
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
@@ -509,9 +558,14 @@ $userData = $user->getUser();
     <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="../../assets/vendor/php-email-form/validate.js"></script>
+    <script src="../../assets/vendor/jquery/jquery.min.js"></script>
 
-    <!-- Template Main JS File -->
+
+
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/diagnosis/add_diagnosis_details.js"></script>
+
+
 
 </body>
 

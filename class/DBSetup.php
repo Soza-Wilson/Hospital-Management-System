@@ -47,6 +47,7 @@ class DBSetup
                             sex TEXT,
                             registered_date DATE,
                             contact_address VARCHAR(300),
+                            phone INT,
                             email VARCHAR(100),
                             password VARCHAR(100),
                             role_id INT,
@@ -91,9 +92,13 @@ class DBSetup
 
                                         $sql = "CREATE TABLE diagnosis(diagnosis_id int PRIMARY KEY AUTO_INCREMENT, 
                             
+                            prensent_complaint TEXT,
+                            history TEXT,
                             diagnosis_name TEXT,
-                            diagnosis_date DATE,
                             description TEXT,
+                          
+                            diagnosis_date DATE,
+                            status TEXT,
                             patient INT,
                             doctor INT,
                             FOREIGN KEY(doctor)REFERENCES user(user_id),
@@ -103,6 +108,36 @@ class DBSetup
                                         mysqli_query($this->con, $sql);
 
 
+                                        $sql = "CREATE TABLE lab_test(test_id int PRIMARY KEY AUTO_INCREMENT, 
+                            
+                                urine_test TEXT,
+                                blood_test TEXT,
+                                imaging_studies TEXT,
+                                diagnosis_id INT,
+                                
+                                FOREIGN KEY(diagnosis_id)REFERENCES diagnosis(diagnosis_id))
+                                ";
+
+                                        mysqli_query($this->con, $sql);
+
+
+                                        $sql = "CREATE TABLE vitals(vitals_id int PRIMARY KEY AUTO_INCREMENT, 
+                            
+                                temperature INT,
+                                blood_pressure INT,
+                                heart_rate INT,
+                                respiratory_rate TEXT,
+                                diagnosis_id INT,
+                                
+                                FOREIGN KEY(diagnosis_id)REFERENCES diagnosis(diagnosis_id))";
+
+                                        mysqli_query($this->con, $sql);
+
+
+
+
+
+
                                         $sql = "CREATE TABLE treatement(treatment_id int PRIMARY KEY AUTO_INCREMENT, 
                             
                             treatment_name TEXT,
@@ -110,6 +145,7 @@ class DBSetup
                             description TEXT,
                             patient INT,
                             doctor INT,
+                            advice TEXT,
                             FOREIGN KEY(doctor)REFERENCES user(user_id),
                             FOREIGN KEY(patient)REFERENCES patient(patient_id)) ";
 
@@ -171,8 +207,8 @@ class DBSetup
                                         mysqli_query($this->con, $sql);
 
 
-                                        $sql = "INSERT INTO `user`(`user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`, `role_id`) 
-                    VALUES ('1','admin','admin','2222-02-22','-','2222-02-22','None','admin@admin.com','0000','1')";
+                                        $sql = "INSERT INTO `user`(`user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`,`phone`, `email`, `password`, `role_id`) 
+                    VALUES ('1','admin','admin','2222-02-22','male','2222-02-22','None','0','admin@admin.com','0000','1')";
 
                                         mysqli_query($this->con, $sql);
 

@@ -161,17 +161,17 @@ $patientData = $patient->getPatientDetails();
             </a>
           </li>
           <li>
-            <a href="register-referrel.php" >
+            <a href="../referrel/register-referrel.php" >
               <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
           <li>
-            <a href="register-diagnosis.php">
+            <a href="../diagnosis.register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="register-treatment.php">
+            <a href="../treatment/register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>

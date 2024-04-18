@@ -88,7 +88,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/user-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -99,7 +99,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -142,12 +142,17 @@ $userRole = $role->getRole($user)
             </a>
           </li>
           <li>
-            <a href="../patient/register-diagnosis.php">
+            <a href="../referrel/register-referrel.php" >
+              <i class="bi bi-circle"></i><span>Referrels</span>
+            </a>
+          </li>
+          <li>
+            <a href="../diagnosis/register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="../patient/register-treatment.php">
+            <a href="../treatment/register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>

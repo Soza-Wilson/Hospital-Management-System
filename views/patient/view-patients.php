@@ -19,7 +19,7 @@ $userRole = $role->getRole($user)
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Tables / Data - NiceAdmin Bootstrap Template</title>
+  <title>Bwaila HMS / View patients</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -116,9 +116,9 @@ $userRole = $role->getRole($user)
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="../home.php">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -138,17 +138,17 @@ $userRole = $role->getRole($user)
             </a>
           </li>
           <li>
-            <a href="register-referrel.php" >
+            <a href="../referrel/register-referrel.php" >
               <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
           <li>
-            <a href="register-diagnosis.php">
+            <a href="../diagnosis/register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="register-treatment.php">
+            <a href="../treatment/register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>

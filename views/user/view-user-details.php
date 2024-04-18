@@ -10,7 +10,7 @@ $role = new Role("", "", "", "");
 $userRole = $role->getRole($_SESSION['user']);
 
 $user = new User($_GET['userID'], "", "", "", "", "", "", "", "", "", "");
-$userData = $user->getUser();
+$userData = $user->getInactiveUserDetails();
 ;
 
 
@@ -19,7 +19,7 @@ $userData = $user->getUser();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">s
+<html lang="en">
 
 <head>
   <meta charset="utf-8">

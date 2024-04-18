@@ -31,7 +31,7 @@ $(document).ready(() => {
         registerPatient: patientValues,
       },
       (data) => {
-        window.location = "register-relative.php?patientId="+parseInt(data)+"";
+        window.location = "../relative/register-relative.php?patientId="+parseInt(data)+"";
       }
     );
   };

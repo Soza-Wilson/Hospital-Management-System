@@ -117,9 +117,9 @@ $userRole = $role->getRole($user)
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="home.php">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -139,12 +139,17 @@ $userRole = $role->getRole($user)
             </a>
           </li>
           <li>
-            <a href="../patient/register-diagnosis.php">
+            <a href="../referrel/register-referrel.php" >
+              <i class="bi bi-circle"></i><span>Referrels</span>
+            </a>
+          </li>
+          <li>
+            <a href="../diagnosis/register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="register-treatment.php">
+            <a href="../treatment/register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>
@@ -295,7 +300,8 @@ $userRole = $role->getRole($user)
                       <td>$sex</td>
                       <td>$registerDate</td>
                       <td> <span class='badge bg-danger'>Unassigned</span></td>
-                      <td> <a href='view-user-details.php?userID=$userID' class='btn btn-primary'>view</a></td>
+                      <td> <a href='view-user-details.php?userID=$userID&
+                      userType=inactive' class='btn btn-primary'>view</a></td>
                      
                    
                     </tr>

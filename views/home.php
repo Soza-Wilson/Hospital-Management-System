@@ -84,7 +84,7 @@ $userRole = $role->getRole($user)
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+                            <a class="dropdown-item d-flex align-items-center" href="other/user-profile.php">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -95,7 +95,7 @@ $userRole = $role->getRole($user)
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
+                            <a class="dropdown-item d-flex align-items-center" href="other/sign-out.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>

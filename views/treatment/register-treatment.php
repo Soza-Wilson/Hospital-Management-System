@@ -1,6 +1,7 @@
+<?php
 
 
-<?php session_start();
+ session_start();
 $user = $_SESSION['user'];
 
 spl_autoload_register(function ($class) {
@@ -21,7 +22,7 @@ $userRole = $role->getRole($user)
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Bwaila MHS / Register department</title>
+  <title>Bwails HMS / Register Treatment</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -46,8 +47,6 @@ $userRole = $role->getRole($user)
   <link href="../../assets/css/style.css" rel="stylesheet">
 
 
-</head>
-
 <body>
 
   <!-- ======= Header ======= -->
@@ -61,7 +60,7 @@ $userRole = $role->getRole($user)
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <!-- End Search Bar -->
+
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -89,7 +88,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../other/user-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -100,7 +99,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../other/sign-out.php">
+              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -112,7 +111,6 @@ $userRole = $role->getRole($user)
       </ul>
     </nav><!-- End Icons Navigation -->
 
-
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -121,9 +119,9 @@ $userRole = $role->getRole($user)
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="../home.php">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -131,37 +129,37 @@ $userRole = $role->getRole($user)
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-emoji-dizzy"></i><span>Patient</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../patient/register-patient.php" >
+        <ul id="components-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <li>
+            <a href="../patient/register-patient.php">
               <i class="bi bi-circle"></i><span>Register Patient</span>
             </a>
           </li>
           <li>
-            <a href="../patient/view-patients.php">
+            <a href="../patient/view-patients.php" >
               <i class="bi bi-circle"></i><span>View Registered Patients</span>
             </a>
           </li>
           <li>
             <a href="../referrel/register-referrel.php" >
-              <i class="bi bi-circle"></i><span>Referrels</span>
+              <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
           <li>
-            <a href="../diagnosis/register-diagnosis.php">
+            <a href="../diagnosis/register-diagnosis.php" >
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="../treatment/register-treatment.php">
+            <a href="register-treatment.php" class= "active">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>
-          
+
         </ul>
       </li><!-- End Components Nav -->
 
-     
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -169,12 +167,12 @@ $userRole = $role->getRole($user)
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="../../views/user/view-active-users.php">
-              <i class="bi bi-circle"></i><span>Active Users </span>
+            <a href="../user/view-active-users.php">
+              <i class="bi bi-circle"></i><span>Active Users</span>
             </a>
           </li>
           <li>
-            <a href="../../views/user/view-inactive-users.php">
+            <a href="../user/view-inactive-users.php">
               <i class="bi bi-circle"></i><span>Inactive Users</span>
             </a>
           </li>
@@ -185,18 +183,22 @@ $userRole = $role->getRole($user)
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-shop"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="register_department.php" class="active">
-              <i class="bi bi-circle"></i><span>Register Department</span>
+            <a href="charts-chartjs.html">
+              <i class="bi bi-circle"></i><span>Chart.js</span>
             </a>
           </li>
           <li>
-            <a href="departments.php">
-              <i class="bi bi-circle"></i><span>View Departments</span>
+            <a href="charts-apexcharts.html">
+              <i class="bi bi-circle"></i><span>ApexCharts</span>
             </a>
           </li>
-         
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>ECharts</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Charts Nav -->
 
@@ -223,83 +225,116 @@ $userRole = $role->getRole($user)
         </ul>
       </li><!-- End Icons Nav -->
 
-      
 
-     
-      
+
+
+
     </ul>
 
   </aside><!-- End Sidebar-->
 
+
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Register Department</h1>
+      <h1>Patients Data</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Department</li>
-          <li class="breadcrumb-item active">Register department</li>
+          <li class="breadcrumb-item">Patient</li>
+          <li class="breadcrumb-item active">Add Treatment Details</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Patient Data</h5>
 
 
-    <div class="col-lg-12">
+              <table class="datatable">
+                <thead>
+                  <tr>
+                    <th>
+                      <b>Patient </b>Name
+                    </th>
 
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Enter Patient Details </h5>
+                    <th>Diagnosis Name</th>
+                    <th data-type="date" data-format="YYYY/DD/MM">Description</th>
+
+                    <th>Diagnosis By
+                    <th>
 
 
-          <!-- Custom Styled Validation -->
-          <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-12">
-              <label for="departmentName" class="form-label">Department name</label>
-              <input type="text" class="form-control data" id="departmentName" required>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <?php
+
+                  spl_autoload_register(function ($class) {
+                    if (file_exists('../../class/' . $class . '.php')) {
+                      require_once '../../class/' . $class . '.php';
+                    }
+                  });
+
+
+
+                  $patient = new Diagnosis("", "", "", "", "", "", "", "", "", "", "","");
+                  $patientData = $patient->getUntreatedDiagnosis();
+
+                  if(!empty($patientData)){
+
+                  while ($row = $patientData->fetch_assoc()) {
+                    $patientName = $row['full_name'];
+                    $id = $row['diagnosis_id'];
+                    $firstName = $row['first_name'];
+                    $lastName = $row['last_name'];
+                    $diagnosisName = $row['diagnosis_name'];
+                    $diagnosisDescripton = $row['description'];
+                    $diagnosisDate =  Util::convert_date($row['diagnosis_date']);
+
+
+
+                    echo "
+                    <tr>
+                    <td>$patientName</td>
+                
+                    <td>$$diagnosisName</td>
+                    <td>$diagnosisDescripton</td>
+                    <td> $firstName $lastName</td>
+                    <td> <a href='add-treatment-details.php?patientID=$id' class='btn btn-success'>Add Treatment <i class='ri ri-book-2-line'></i></a></td>
+                   
+                 
+                  </tr>
+                    ";
+                  }
+
+                }
+
+
+
+                  ?>
+
+
+                  <!-- Table with stripped rows -->
+
+
+
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
             </div>
-            
-           
-
-            
-            
-           
-           
-            
-            <div class="col-md-12">
-              <label for="description" class="form-label">Description</label>
-              <textarea type="text" class="form-control data" id="description" required></textarea>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-            </div>
-            
-           
-            
-         
-
-          
-            <div class="col-12">
-              
-            </div>
-            
-          </form><!-- End Custom Styled Validation -->
-
-          <div class="col-12">
-              <button class="btn btn-primary" id="save_department">Submit form</button>
-            </div>
+          </div>
 
         </div>
       </div>
-
-
-
-    </div>
-    </div>
     </section>
 
   </main><!-- End #main -->
@@ -323,12 +358,9 @@ $userRole = $role->getRole($user)
   <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
-  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
 
-
-
+  <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
-  <script src="../../assets/js/department/register_department__.js"></script>
 
 </body>
 

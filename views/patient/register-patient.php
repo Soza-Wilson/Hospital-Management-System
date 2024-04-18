@@ -87,7 +87,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -98,7 +98,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -118,9 +118,9 @@ $userRole = $role->getRole($user)
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="../home.php">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -141,17 +141,17 @@ $userRole = $role->getRole($user)
           </li>
 
           <li>
-            <a href="register-referrel.php" >
+            <a href="../referrel/register-referrel.php" >
               <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
           <li>
-            <a href="register-diagnosis.php">
+            <a href="../diagnosis/register-diagnosis.php">
               <i class="bi bi-circle"></i><span>Add Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="register-treatment.php">
+            <a href="../treatment/register-treatment.php">
               <i class="bi bi-circle"></i><span>Add Treatment</span>
             </a>
           </li>
@@ -403,7 +403,7 @@ $userRole = $role->getRole($user)
 
 
   <script src="../../assets/js/main.js"></script>
-  <script src="../../assets/js/patient/register_patient.js"></script>
+  <script src="../../assets/js/patient/register_patient_.js"></script>
 
 </body>
 

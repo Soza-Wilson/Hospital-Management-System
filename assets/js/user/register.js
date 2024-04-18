@@ -119,6 +119,7 @@ $(document).ready(() => {
       dateOfBirth: $("#dob").val(),
       sex: $("#sex").val(),
       contactAddress: $("#address").val(),
+      phone: $("#phone").val(),
       password: $("#password").val(),
     };
 

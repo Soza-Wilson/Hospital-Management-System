@@ -4,9 +4,9 @@ class User
 {
 
     use DBConnection;
-    private $userID, $firstName, $lastName, $dateOfBirth, $gender, $registerDate, $contactAddress, $email, $userPassword;
+    private $userID, $firstName, $lastName, $dateOfBirth, $gender, $registerDate, $contactAddress, $phone, $email, $userPassword;
 
-    public function __construct($userID, $firstName, $lastName, $dateOfBirth, $gender, $contactAddress, $email, $userPassword)
+    public function __construct($userID, $firstName, $lastName, $dateOfBirth, $gender, $contactAddress, $phone, $email, $userPassword)
     {
         $this->userID = $userID;
         $this->firstName = $firstName;
@@ -15,6 +15,7 @@ class User
         $this->gender = $gender;
         $this->contactAddress = $contactAddress;
         $this->email = $email;
+        $this->phone = $phone;
         $this->userPassword = $userPassword;
         $this->registerDate = Util::get_current_date();
         $this->con = mysqli_connect('localhost', 'root', '', 'bwaila_hospital_schema');
@@ -32,8 +33,8 @@ class User
         try {
             //code..
 
-            $sql = "INSERT INTO `user`(`user_id`,`first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`) VALUES
-                 ('','$this->firstName','$this->lastName','$this->dateOfBirth','$this->gender','$this->registerDate','$this->contactAddress','$this->email','$this->userPassword')";
+            $sql = "INSERT INTO `user`(`user_id`,`first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`,`phone`, `email`, `password`) VALUES
+                 ('','$this->firstName','$this->lastName','$this->dateOfBirth','$this->gender','$this->registerDate','$this->contactAddress','$this->phone','$this->email','$this->userPassword')";
             $statement = $this->con->prepare($sql);
             if ($statement->execute()) {
                 mysqli_close($this->con);
@@ -149,12 +150,31 @@ class User
 
         try {
             //code...
-            $sql = "SELECT * FROM `user` WHERE `user_id` = '$this->userID' ";
+            $sql = "SELECT `user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`, user_role.specialty as role, department.department_name as department 
+            FROM `user` INNER JOIN user_role ON user.user_id = user_role.role_id LEFT JOIN department ON user_role.department = department.department_id WHERE `user_id` = '$this->userID' ";
             $result = $this->con->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     return $row;
                 }
+                mysqli_close($this->con);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getInactiveUserDetails(): array
+    {
+
+        try {
+            $sql = "SELECT * FROM `user` WHERE `user_id` = '$this->userID'";
+            $result = $this->con->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    return $row;
+                }
+                mysqli_close($this->con);
             }
         } catch (\Throwable $th) {
             throw $th;

@@ -97,7 +97,7 @@
 
                         <select class="form-control" id="sex" required>
                           <option value="male">Male</option>
-                          <option value="feamle">female</option>
+                          <option value="female">female</option>
                         </select>
                         <div class="invalid-feedback">Please select gender.</div>
                       </div>
@@ -112,6 +112,17 @@
                         <div class="invalid-feedback">Please enter Contact Address.</div>
                       </div>
                     </div>
+
+                    
+                    <div class="col-12">
+                      <label for="address" class="form-label">Phone Number</label>
+                      <div class="input-group has-validation">
+
+                        <input type="number" name="phone" class="form-control" id="phone" cols="10" required>
+                        <div class="invalid-feedback">Please enter phone number.</div>
+                      </div>
+                    </div>
+
 
                     <div class="col-12">
                       <label for="address" class="form-label">Password</label>
@@ -187,7 +198,7 @@
 
   <!-- Page JS File -->
   <script src="../../assets/js/main.js"></script>
-  <script src="../../assets/js/user/register___.js"></script>
+  <script src="../../assets/js/user/register.js"></script>
 
 </body>
 
