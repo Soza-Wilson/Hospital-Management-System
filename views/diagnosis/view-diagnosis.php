@@ -50,7 +50,7 @@ $userRole = $role->getRole($user)
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="../home.php" class="logo d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center">
         <img src="../../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Bwaila HMS</span>
       </a>
@@ -85,7 +85,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="../other/users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/user-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -154,12 +154,12 @@ $userRole = $role->getRole($user)
         </a>
         <ul id="diagnosis-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="./register-diagnosis.php" class="active" >
+            <a href="./register-diagnosis.php" >
               <i class="bi bi-circle"></i><span>Register Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="./view-diagnosis.php" >
+            <a href="./view-diagnosis.php" class="active">
               <i class="bi bi-circle"></i><span>View Diagnosis</span>
             </a>
           </li>
@@ -172,13 +172,13 @@ $userRole = $role->getRole($user)
         </a>
         <ul id="treatment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="../treatment/register-treatment.php">
-              <i class="bi bi-circle"></i><span>Register Treatment</span>
+            <a href="../user/view-active-users.php">
+              <i class="bi bi-circle"></i><span>Register Diagnosis</span>
             </a>
           </li>
           <li>
-            <a href="../treatment/view-treatment.php">
-              <i class="bi bi-circle"></i><span>View Treatments</span>
+            <a href="../user/view-inactive-users.php">
+              <i class="bi bi-circle"></i><span>View Diagnosis</span>
             </a>
           </li>
         </ul>
@@ -255,15 +255,16 @@ $userRole = $role->getRole($user)
 
   </aside><!-- End Sidebar-->
 
+
   <main id="main" class="main">
 
     <div class="pagetitle">
       <h1>Patients Data</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item">Patient</li>
-          <li class="breadcrumb-item active">Register Diagnosis</li>
+          <li class="breadcrumb-item active">View Diagnosis</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -272,7 +273,12 @@ $userRole = $role->getRole($user)
       <div class="row">
         <div class="col-lg-12">
 
-    
+        <div class="card">
+
+
+
+
+</div>
 
 
           <div class="card">
@@ -295,8 +301,6 @@ $userRole = $role->getRole($user)
 
                   </tr>
                 </thead>
-
-              
                 <tbody>
 
 
@@ -310,18 +314,19 @@ $userRole = $role->getRole($user)
 
 
 
-                  $patient = new Patient("", "", "", "", "", "", "", "", "", "", "","");
-                  $patientData = $patient->getPatients();
+                  $diagnosis = new Diagnosis("", "", "", "", "", "", "", "", "", "", "","");
+                  $diagnosisData = $diagnosis->getUntreatedDiagnosis();
 
-                  if(!empty($patientData)){
+                  if(!empty($diagnosisData)){
 
-                  while ($row = $patientData->fetch_assoc()) {
-                    $name = $row['full_name'];
-                    $dateOfBirth = $row['date_of_birth'];
-                    $sex = $row['sex'];
-                    $registerDate = Util::convert_date($row['registered_date']);
-                    $patientID = $row['patient_id'];
-                  
+                  while ($row = $diagnosisData->fetch_assoc()) {
+                    $name = $row['name'];
+                    $diagnosisName = $row['diagnosis_name'];
+                    $description=$row['description'];
+                    $registerDate = Util::convert_date($row['diagnosis_date']);
+                    $patient = $row['patient_id'];
+                    $diagnosisID = $row['diagnosis_id'];
+                   
 
 
 
@@ -329,10 +334,10 @@ $userRole = $role->getRole($user)
                     <tr>
                     <td>$name</td>
                 
-                    <td>$sex</td>
-                    <td>$registerDate</td>
-                    <td> <span class='badge bg-danger'>Undiagnosed</span></td>
-                    <td> <a href='add-diagnosis-details.php?patientID=$patientID' class='btn btn-success'>Add Diagnosis <i class='ri ri-book-2-line'></i></a></td>
+                    <td>$diagnosisName</td>
+                    <td>$description</td>
+                    <td> <span >$registerDate</span></td>
+                    <td> <a href='view-diagnosis-details.php?patientID=$patient&diagnosisID=$diagnosisID' class='btn btn-success'>View <i class='ri ri-book-2-line'></i></a></td>
                    
                  
                   </tr>
@@ -358,7 +363,88 @@ $userRole = $role->getRole($user)
             </div>
           </div>
 
-         
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Treated Diagnosis</h5>
+              <table class="datatable">
+                <thead>
+                  <tr>
+                    <th>
+                      <b>N</b>ame
+                    </th>
+
+                    <th>Sex</th>
+                    <th data-type="date" data-format="YYYY/DD/MM">Registered Date</th>
+
+                    <th>Status
+                    <th>
+
+
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <?php
+
+                  spl_autoload_register(function ($class) {
+                    if (file_exists('../../class/' . $class . '.php')) {
+                      require_once '../../class/' . $class . '.php';
+                    }
+                  });
+
+
+
+                  $diagnosis = new Diagnosis("", "", "", "", "", "", "", "", "", "", "","");
+                  $diagnosisData = $diagnosis->gettreatedDiagnosis();
+
+                  if(!empty($diagnosisData)){
+
+                  while ($row = $diagnosisData->fetch_assoc()) {
+                    $name = $row['name'];
+                    $diagnosisName = $row['diagnosis_name'];
+                    $description=$row['description'];
+                    $registerDate = Util::convert_date($row['diagnosis_date']);
+                    $patient = $row['patient_id'];
+                    $diagnosisID = $row['diagnosis_id'];
+                   
+
+
+
+                    echo "
+                    <tr>
+                    <td>$name</td>
+                
+                    <td>$diagnosisName</td>
+                    <td>$description</td>
+                    <td> <span >$registerDate</span></td>
+                    <td> <a href='view-diagnosis-details.php?patientID=$patient&diagnosisID=$diagnosisID' class='btn btn-success'>View <i class='ri ri-book-2-line'></i></a></td>
+                   
+                 
+                  </tr>
+                    ";
+                  }
+
+                }
+
+
+
+                  ?>
+
+
+                  <!-- Table with stripped rows -->
+
+
+
+                </tbody>
+              </table>
+             
+
+             
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
 
 
         </div>

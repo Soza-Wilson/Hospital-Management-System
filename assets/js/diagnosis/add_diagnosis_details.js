@@ -12,6 +12,7 @@ $(document).ready(() => {
   });
 
   const registerDiagnosis = () => {
+    
     const diagnosisHistory = () => {
       if ($("#presentComplaintHistory").val() === "") {
         return "empty";
@@ -25,20 +26,22 @@ $(document).ready(() => {
       presentComplaintHistory: diagnosisHistory(),
       diagnosisName: $("#diagnosisName").val(),
       diagnosisDescription: $("#diagnosisDescription").val(),
-      doctorAdvice: $("#doctorAdvice").val(),
       patientId: $("#patientId").val(),
       doctorId: $("#doctorId").val(),
     };
 
+    
     $.post(
       "../../controller/diagnosis.php",
       {
         registerDiagnosis: diagnosisData,
       },
       (data) => {
-        alert(data);
-        //   window.location = "login.php";
+       alert(data)
+       window.location.reload()
       }
     );
   };
+
+
 });

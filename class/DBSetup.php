@@ -134,6 +134,19 @@ class DBSetup
                                         mysqli_query($this->con, $sql);
 
 
+                                        $sql = "CREATE TABLE physical(physical_id int PRIMARY KEY AUTO_INCREMENT, 
+                            
+                                        physical_name TEXT,
+                                        dir TEXT,
+                                        
+                                        diagnosis_id INT,
+                                        
+                                        FOREIGN KEY(diagnosis_id)REFERENCES diagnosis(diagnosis_id))";
+
+                                        mysqli_query($this->con, $sql);
+
+
+
 
 
 

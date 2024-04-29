@@ -89,6 +89,8 @@ class Patient
         }
     }
 
+
+ 
     public function getPatientDetails(): array
     {
 

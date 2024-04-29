@@ -7,8 +7,6 @@ spl_autoload_register(function ($class) {
     }
 });
 
-$patient = new Patient($_GET['patientID'], "", "", "", "", "", "", "", "", "", "", "");
-$patientData = $patient->getPatientDetails();
 
 $role = new Role("", "", "", "");
 $userRole = $role->getRole($user)
@@ -293,6 +291,17 @@ $userRole = $role->getRole($user)
                             </div>
                         </div>
 
+                        <div class="col-md-12">
+                            <label for="firstName" class="form-label">Doctor Advice</label>
+                            <textarea class="form-control" id="advice" placeholder="Enter doctor advice" required></textarea>
+                            <input type="hidden" id= "diagnosisId" value="<?php echo $_GET['diagnosisId']?>">
+                            <input type="hidden" id= "patientId" value="<?php echo $_GET['patientId']?>">
+                            <input type="hidden" id= "userId" value="<?php echo $_SESSION['user']?>">
+                            <div class="invalid-feedback">
+                                Enter valid treatment description
+                            </div>
+                        </div>
+
 
 
 
@@ -314,7 +323,7 @@ $userRole = $role->getRole($user)
                     </form><!-- End Custom Styled Validation -->
 
                     <div class="col-12">
-                        <button class="btn btn-primary" id="saveDiagnosis">Submit form</button>
+                        <button class="btn btn-primary" id="saveTreatment">Submit form</button>
                     </div>
 
                 </div>
@@ -352,7 +361,7 @@ $userRole = $role->getRole($user)
 
 
     <script src="../../assets/js/main.js"></script>
-    <script src="../../assets/js/diagnosis/add_treatment_details.js"></script>
+    <script src="../../assets/js/treatment/add_treatment_details__.js"></script>
 
 
 

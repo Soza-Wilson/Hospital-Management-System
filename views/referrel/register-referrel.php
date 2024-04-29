@@ -52,7 +52,7 @@ $userRole = $role->getRole($user)
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="../home.php" class="logo d-flex align-items-center">
                 <img src="../../assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Bwaila HMS</span>
             </a>
@@ -87,7 +87,7 @@ $userRole = $role->getRole($user)
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+                            <a class="dropdown-item d-flex align-items-center" href="../other/users-profile.php">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -98,7 +98,7 @@ $userRole = $role->getRole($user)
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
+                            <a class="dropdown-item d-flex align-items-center" href="../other/sign-out.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -135,7 +135,7 @@ $userRole = $role->getRole($user)
                         </a>
                     </li>
                     <li>
-                        <a href="view-patients.php">
+                        <a href="../patient/view-patients.php">
                             <i class="bi bi-circle"></i><span>View Registered Patients</span>
                         </a>
                     </li>
@@ -144,20 +144,46 @@ $userRole = $role->getRole($user)
                             <i class="bi bi-circle"></i><span>Referrals</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="../diagnosis/register-diagnosis.php">
-                            <i class="bi bi-circle"></i><span>Add Diagnosis</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../treatment/register-treatment.php">
-                            <i class="bi bi-circle"></i><span>Add Treatment</span>
-                        </a>
-                    </li>
+                   
 
                 </ul>
             </li><!-- End Components Nav -->
 
+            <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#diagnosis-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-thermometer-half"></i><span>Diagnosis </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="diagnosis-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../register-diagnosis.php"  >
+              <i class="bi bi-circle"></i><span>Register Diagnosis</span>
+            </a>
+          </li>
+          <li>
+            <a href="../view-diagnosis.php" >
+              <i class="bi bi-circle"></i><span>View Diagnosis</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#treatment-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-clipboard-plus"></i><span>Treatment </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="treatment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../treatment/register-treatment.php">
+              <i class="bi bi-circle"></i><span>Register Treatment</span>
+            </a>
+          </li>
+          <li>
+            <a href="../treatment/view-treatment.php">
+              <i class="bi bi-circle"></i><span>View Treatments</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
 
             <li class="nav-item">
@@ -234,7 +260,7 @@ $userRole = $role->getRole($user)
             <h1> Patient Referrel</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
                     <li class="breadcrumb-item">Patient</li>
                     <li class="breadcrumb-item active"> Patient Referrel</li>
                 </ol>
@@ -258,7 +284,7 @@ $userRole = $role->getRole($user)
                         Add New referrel
                     </button>
                     <div class="modal fade" id="basicModal" tabindex="-1">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog  modal-xl">
                             <div class="modal-content">
 
 

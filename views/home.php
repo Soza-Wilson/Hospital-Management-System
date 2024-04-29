@@ -140,23 +140,49 @@ $userRole = $role->getRole($user)
 
           <li>
             <a href="patient/register-referrel.php">
-              <i class="bi bi-circle"></i><span>Refferel</span>
+              <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
-          <li>
-            <a href="register-diagnosis.php">
-              <i class="bi bi-circle"></i><span>Add Diagnosis</span>
-            </a>
-          </li>
-          <li>
-            <a href="register-treatment.php">
-              <i class="bi bi-circle"></i><span>Add Treatment</span>
-            </a>
-          </li>
+         
 
         </ul>
       </li><!-- End Components Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#diagnosis-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-thermometer-half"></i><span>Diagnosis </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="diagnosis-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="diagnosis/register-diagnosis.php"  >
+              <i class="bi bi-circle"></i><span>Register Diagnosis</span>
+            </a>
+          </li>
+          <li>
+            <a href="diagnosis/view-diagnosis.php" >
+              <i class="bi bi-circle"></i><span>View Diagnosis</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#treatment-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-clipboard-plus"></i><span>Treatment </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="treatment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="treatment/register-treatment.php">
+              <i class="bi bi-circle"></i><span>Register Treatment</span>
+            </a>
+          </li>
+          <li>
+            <a href="treatment/view-treatment.php">
+              <i class="bi bi-circle"></i><span>View Treatments</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
 
       <li class="nav-item">

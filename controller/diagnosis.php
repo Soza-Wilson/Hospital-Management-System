@@ -8,6 +8,7 @@ spl_autoload_register(function ($class) {
 if (isset($_POST["registerDiagnosis"])) {
     $diagnosisData = $_POST["registerDiagnosis"];
 
-    $diagnosis = new Diagnosis("", $diagnosisData["patientId"], $diagnosisData["doctorId"], $diagnosisData["presentComplaint"], $diagnosisData["presentComplaintHistory"], $diagnosisData["diagnosisName"], $diagnosisData["diagnosisDescription"], $diagnosisData["doctorAdvice"]);
+    $diagnosis = new Diagnosis("", $diagnosisData["patientId"], $diagnosisData["doctorId"], $diagnosisData["presentComplaint"], $diagnosisData["presentComplaintHistory"], $diagnosisData["diagnosisName"], $diagnosisData["diagnosisDescription"] );
     echo $diagnosis->registerDiagnosis();
 }
+

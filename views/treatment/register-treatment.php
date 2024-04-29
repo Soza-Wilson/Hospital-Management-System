@@ -53,7 +53,7 @@ $userRole = $role->getRole($user)
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="../home.php" class="logo d-flex align-items-center">
         <img src="../../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Bwaila HMS</span>
       </a>
@@ -88,7 +88,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/user-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -99,7 +99,7 @@ $userRole = $role->getRole($user)
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="sign-out.php">
+              <a class="dropdown-item d-flex align-items-center" href="../other/sign-out.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -145,21 +145,46 @@ $userRole = $role->getRole($user)
               <i class="bi bi-circle"></i><span>Referrals</span>
             </a>
           </li>
-          <li>
-            <a href="../diagnosis/register-diagnosis.php" >
-              <i class="bi bi-circle"></i><span>Add Diagnosis</span>
-            </a>
-          </li>
-          <li>
-            <a href="register-treatment.php" class= "active">
-              <i class="bi bi-circle"></i><span>Add Treatment</span>
-            </a>
-          </li>
+         
 
         </ul>
       </li><!-- End Components Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#diagnosis-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-thermometer-half"></i><span>Diagnosis </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="diagnosis-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../register-diagnosis.php"  >
+              <i class="bi bi-circle"></i><span>Register Diagnosis</span>
+            </a>
+          </li>
+          <li>
+            <a href="../view-diagnosis.php" >
+              <i class="bi bi-circle"></i><span>View Diagnosis</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#treatment-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-clipboard-plus"></i><span>Treatment </span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="treatment-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="../treatment/register-treatment.php" class="active">
+              <i class="bi bi-circle"></i><span>Register Treatment</span>
+            </a>
+          </li>
+          <li>
+            <a href="../treatment/view-treatment.php">
+              <i class="bi bi-circle"></i><span>View Treatments</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -240,7 +265,7 @@ $userRole = $role->getRole($user)
       <h1>Patients Data</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="../home.php">Home</a></li>
           <li class="breadcrumb-item">Patient</li>
           <li class="breadcrumb-item active">Add Treatment Details</li>
         </ol>
@@ -291,8 +316,9 @@ $userRole = $role->getRole($user)
                   if(!empty($patientData)){
 
                   while ($row = $patientData->fetch_assoc()) {
-                    $patientName = $row['full_name'];
-                    $id = $row['diagnosis_id'];
+                    $patientName = $row['name'];
+                    $diagnosisId = $row['diagnosis_id'];
+                    $patientId = $row['patient_id'];
                     $firstName = $row['first_name'];
                     $lastName = $row['last_name'];
                     $diagnosisName = $row['diagnosis_name'];
@@ -305,10 +331,10 @@ $userRole = $role->getRole($user)
                     <tr>
                     <td>$patientName</td>
                 
-                    <td>$$diagnosisName</td>
+                    <td>$diagnosisName</td>
                     <td>$diagnosisDescripton</td>
                     <td> $firstName $lastName</td>
-                    <td> <a href='add-treatment-details.php?patientID=$id' class='btn btn-success'>Add Treatment <i class='ri ri-book-2-line'></i></a></td>
+                    <td> <a href='add-treatment-details.php?diagnosisId=$diagnosisId&patientId=$patientId' class='btn btn-success'>Add Treatment <i class='ri ri-book-2-line'></i></a></td>
                    
                  
                   </tr>

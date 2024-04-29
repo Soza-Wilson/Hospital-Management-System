@@ -13,7 +13,7 @@ trait DBConnection
         $this->USERNAME ='root';
         $this->PASSWORD= '';
         $this->DATABASE = 'bwaila_hospital_schema';
-        $this->PORT = 3306;
+        // $this->PORT = 3306;
        
         
     }
