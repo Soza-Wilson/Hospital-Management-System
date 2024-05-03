@@ -7,7 +7,6 @@ load_dotenv()
 
 
 client = OpenAI(
-    # This is the default and can be omitted
     api_key=os.getenv("OPEN_AI_KEY"),
 )
 

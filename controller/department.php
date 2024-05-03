@@ -70,7 +70,7 @@ if (isset($_POST['getRoleId'])) {
 if (isset($_POST['setRole'])) {
 
     $data = $_POST['setRole'];
-    $user = new User("", "", "", "", "", "", "", "");
+    $user = new User("", "", "", "", "", "", "", "","");
     echo $user->setUserRole($data['userId'], $data['roleId']);
 }
 

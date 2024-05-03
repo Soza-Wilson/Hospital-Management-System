@@ -129,6 +129,22 @@ class User
         }
     }
 
+    public function getDoctor(): object
+    {
+
+        try {
+            //code...
+            $sql = "SELECT `user_id`, `first_name`, `last_name`, `date_of_birth`, `sex`, `registered_date`, `contact_address`, `email`, `password`, `specialty`,`department_name`,user.role_id FROM `user`
+             INNER JOIN `user_role` ON user_role.role_id = user.role_id INNER JOIN `department` ON department.department_id = user_role.department WHERE user_role.title = 'doctor' OR user_role.title = 'nurse'";
+            $result = $this->con->query($sql);
+            if ($result->num_rows > 0) {
+                return $result;
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getInactiveUsers()
     {
 

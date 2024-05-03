@@ -4,8 +4,8 @@
 class Appointment
 {
     use DBConnection;
-    private $appointmentID, $user, $date, $startTime,$endTime, $patient, $type;
-    public function __construct($appointmentID, $user, $date, $StartTime,$endTime, $patient, $type)
+    private $appointmentID, $user, $date, $startTime, $endTime, $patient, $type;
+    public function __construct($appointmentID, $user, $date, $StartTime, $endTime, $patient, $type)
     {
         $this->appointmentID = $appointmentID;
         $this->user = $user;
@@ -14,6 +14,7 @@ class Appointment
         $this->startTime = $StartTime;
         $this->endTime = $endTime;
         $this->type = $type;
+        $this->con = $this->connect();
     }
 
 
@@ -34,14 +35,15 @@ class Appointment
     }
 
 
-    private function sendNotification(){
+    private function sendNotification()
+    {
 
         // mail();
 
 
     }
 
-   
+
 
     public function getAppointments(): array
     {
