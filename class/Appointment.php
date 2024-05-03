@@ -4,14 +4,15 @@
 class Appointment
 {
     use DBConnection;
-    private $appointmentID, $user, $date, $time, $patient, $type;
-    public function __construct($appointmentID, $user, $date, $time, $patient, $type)
+    private $appointmentID, $user, $date, $startTime,$endTime, $patient, $type;
+    public function __construct($appointmentID, $user, $date, $StartTime,$endTime, $patient, $type)
     {
         $this->appointmentID = $appointmentID;
         $this->user = $user;
         $this->date = $date;
         $this->patient = $patient;
-        $this->time = $time;
+        $this->startTime = $StartTime;
+        $this->endTime = $endTime;
         $this->type = $type;
     }
 
@@ -21,8 +22,8 @@ class Appointment
 
         try {
             //code...
-            $sql = "INSERT INTO `appointment`( `patient`, `doctor`, `appointment_date`, `appointment_time`, `type`) VALUES 
-            ('$this->patient','$this->user','$this->date','$this->time','$this->type')";
+            $sql = "INSERT INTO `appointment`(`appointment_id`, `patient`, `doctor`, `appointment_date`, `start_time`, `end_time`, `type`) VALUES
+             ('','$this->patient','$this->user','$this->date','$this->startTime','$this->endTime','$this->type')";
             $statement = $this->con->prepare($sql);
             if ($statement->execute()) {
                 return "registed";
@@ -30,6 +31,14 @@ class Appointment
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+
+    private function sendNotification(){
+
+        // mail();
+
+
     }
 
    
