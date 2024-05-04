@@ -4,7 +4,7 @@
 class Appointment
 {
     use DBConnection;
-    private $appointmentID, $user, $date, $startTime, $endTime, $patient, $type;
+    private $appointmentID, $user, $date, $startTime, $endTime, $patient, $type, $Patient, $User;
     public function __construct($appointmentID, $user, $date, $StartTime, $endTime, $patient, $type)
     {
         $this->appointmentID = $appointmentID;
@@ -15,13 +15,15 @@ class Appointment
         $this->endTime = $endTime;
         $this->type = $type;
         $this->con = $this->connect();
+        $this->Patient = new Patient($this->patient, "", "", "", "", "", "", "", "", "", "");
+        $this->User = new User($this->user, "", "", "", "", "", "", "", "");
     }
 
 
     public function registerAppointment(): string
     {
 
-      
+
         try {
             //code...
             $sql = "INSERT INTO `appointment`(`appointment_id`, `patient`, `doctor`, `appointment_date`, `start_time`, `end_time`, `type`) VALUES
@@ -41,25 +43,46 @@ class Appointment
 
         // mail();
 
-
     }
 
-
-    private function sendDoctorEmail(){
-
-        
-
-
+    private function sendPatientEmail()
+    {
+        $user = $this->getUser();
+        $email = $this->checkIfValidEmail();
+        if ($email !== "invalid" || $email !== "empty") {
+            mail($email, "Appointments", "You have an appointment with" . $user["first_name"] . " " . $user["last_name"] . ", on" . Util::convert_date($this->date) . " from" . $this->startTime . " to" . $this->endTime);
+        }
     }
 
-    private function sendPatientEmail(){
-
-
+    private function sendDoctorEmail()
+    {
+        $patient = $this->getPatient();
     }
 
-    private function checkPatientEmail(){
+    private function checkIfValidEmail()
+    {
 
 
+        $dataArray = $this->Patient->getPatientDetails();
+        if (!empty($dataArray["email"])) {
+            if (!filter_var($dataArray["email"], FILTER_VALIDATE_EMAIL)) {
+                return "invalid";
+            } else {
+                return $dataArray["email"];
+            }
+        } else {
+            return "empty";
+        }
+    }
+
+    private function getUser()
+    {
+        return  $this->User->getUser();
+    }
+
+    private function getPatient()
+    {
+        return $this->Patient->getPatientDetails();
     }
 
 
