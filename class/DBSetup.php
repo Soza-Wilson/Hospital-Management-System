@@ -180,10 +180,9 @@ class DBSetup
                             appointment_date DATE,
                             start_time TIME,
                             end_time TIME,
-                            type INT,
+                            type TEXT,
                             FOREIGN KEY(doctor)REFERENCES user(user_id),
-                            FOREIGN KEY(patient)REFERENCES patient(patient_id),
-                            FOREIGN KEY(type)REFERENCES appointment_type(appointment_type_id)) ";
+                            FOREIGN KEY(patient)REFERENCES patient(patient_id)) ";
 
 
                                         mysqli_query($this->con, $sql);

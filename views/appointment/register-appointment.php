@@ -192,7 +192,7 @@ $userRole = $role->getRole($user)
                 <ul id="appointment-nav" class="nav-content show " data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="treatment/register-treatment.php" class="active">
-                            <i class="bi bi-circle"></i><span>Register appointment</span>
+                            <i class="bi bi-circle"></i><span>add appointment</span>
                         </a>
                     </li>
                     <li>
@@ -363,9 +363,9 @@ $userRole = $role->getRole($user)
 
                                 <select class="form-select" id="type" required>
                                     <option selected disabled value="">Choose Type...</option>
-                                    <option value="">Diagnosis</option>
-                                    <option value="">Treatment</option>
-                                    <option value="">Follow Up</option>
+                                    <option value="diagnosis">Diagnosis</option>
+                                    <option value="treatment">Treatment</option>
+                                    <option value="follow_up">Follow Up</option>
 
 
                                 </select>
@@ -427,7 +427,7 @@ $userRole = $role->getRole($user)
 
 
     <script src="../../assets/js/main.js"></script>
-    <script src="../../assets/js/appointment/register_appointment.js"></script>
+    <script src="../../assets/js/appointment/register_appointment__.js"></script>
 
 </body>
 

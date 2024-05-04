@@ -172,7 +172,7 @@ $userRole = $role->getRole($user)
         </a>
         <ul id="treatment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="treatment/register-treatment.php">
+            <a href="treatment/register-appointment.php">
               <i class="bi bi-circle"></i><span>Register Treatment</span>
             </a>
           </li>
@@ -190,12 +190,12 @@ $userRole = $role->getRole($user)
         </a>
         <ul id="appointment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="treatment/register-treatment.php">
+            <a href="appointment/register-appointment.php">
               <i class="bi bi-circle"></i><span>Add appointment</span>
             </a>
           </li>
           <li>
-            <a href="treatment/view-treatment.php">
+            <a href="appointment/view-appointment.php">
               <i class="bi bi-circle"></i><span>View Appointment</span>
             </a>
           </li>

@@ -21,13 +21,14 @@ class Appointment
     public function registerAppointment(): string
     {
 
+      
         try {
             //code...
             $sql = "INSERT INTO `appointment`(`appointment_id`, `patient`, `doctor`, `appointment_date`, `start_time`, `end_time`, `type`) VALUES
              ('','$this->patient','$this->user','$this->date','$this->startTime','$this->endTime','$this->type')";
             $statement = $this->con->prepare($sql);
             if ($statement->execute()) {
-                return "registed";
+                return "registred";
             };
         } catch (\Throwable $th) {
             throw $th;
@@ -39,6 +40,24 @@ class Appointment
     {
 
         // mail();
+
+
+    }
+
+
+    private function sendDoctorEmail(){
+
+        
+
+
+    }
+
+    private function sendPatientEmail(){
+
+
+    }
+
+    private function checkPatientEmail(){
 
 
     }
